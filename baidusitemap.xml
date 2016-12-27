@@ -3,6 +3,30 @@
 
 
     
+  <url>
+    <loc>http://ilancuo.com/2016/12/27/Android%E4%B8%AD%E9%87%87%E7%94%A8xml%E5%AD%98%E5%82%A8map/</loc>
+    <lastmod>2016-12-27T12:51:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android中采用xml存储map</title>
+        <pubTime>2016-12-27T12:49:23.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>xml</tag>
+         
+        <tag>map</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://ilancuo.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://ilancuo.com/2016/12/25/Android%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84ADB%E5%91%BD%E4%BB%A4/</loc>
@@ -58,9 +82,9 @@
         
         <tag>Android</tag>
          
-        <tag>xStream</tag>
-         
         <tag>xml</tag>
+         
+        <tag>xStream</tag>
          
          
            
