@@ -176,46 +176,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="ADB命令"><a href="#ADB命令" class="headerlink" title="ADB命令"></a>ADB命令</h3><a id="more"></a>
-<pre><code>adb version #查看版本
-adb install D:\HelloWorld.apk #安装指定目录中的apk文件
-adb -s emulator-5554 install HelloWorld.apk #安装应用到指定模拟器
-adb install -r demo.apk #保留数据和缓存文件，重新安装apk
-adb install -s demo.apk #安装apk到SD卡
-adb uninstall -k [包名] #卸载，-k为卸载软件但是保留配置和缓存文件；但是在此命令添加-k参数会报错，可以在adb shell命令中，执行pm uninstall -k [包名]实现相同的功能；
-adb push &lt;local&gt; &lt;remote&gt; #从本地复制文件到模拟器
-adb pull &lt;remote&gt; &lt;local&gt; #从模拟器到本地
-adb get-serialno #获取设备序列号
-adb devices #查看可用模拟器列表
-adb shell #进入Shell
-reboot -p #关机 [shell下命令]
-adb kill-server/start-server #启动、停止模拟器服务
-adb logcat -s [tag] #查看LOG信息
-adb shell cat /sys/class/net/wlan0/address #获取Mac地址
-adb shell getprop ro.product.model #获取设备型号
-adb shell getprop ro.build.version.release #查看Android系统版本
-adb shell wm size #查看屏幕分辨率
-adb shell wm density #查看屏幕密度
-adb shell getprop ro.product.cpu.abi #查看连接手机的CPU核心
-adb shell pm list packages #列出手机装的所有app的包名
-adb shell pm list packages -s #列出系统应用的包名
-adb shell pm list packages -3 #第三方应用的包名
-adb shell pm list packages | grep qq #使用grep过滤
-adb shell pm clear &lt;packagename&gt; #清除应用数据与缓存
-adb shell pm list permissions #查询系统中支持的许可列表
-adb shell am start -n com.ilancuo.demo/.ui.SplashActivity #启动应用
-adb shell am force-stop &lt;packagename&gt; #强制停止应用
-adb shell netstat -ano #查看端口占用情况，然后根据PID去任务管理器里面寻找相应的进程
-adb shell dumpsys activity #ActivityManager 系统服务的相关信息，这些信息包括 Activity，Broadcast，Service 和 ContentProvider
-adb shell dumpsys meminfo #内存使用信息
-adb shell dumpsys procstats –hours 3 #查看过去 3 小时内，进程的使用情况
-</code></pre><h3 id="android命令"><a href="#android命令" class="headerlink" title="android命令"></a>android命令</h3><pre><code>android list targets #查看可用的Android平台：
-android list avd #显示系统中全部AVD（模拟器）
-</code></pre><h3 id="mksdcard命令"><a href="#mksdcard命令" class="headerlink" title="mksdcard命令"></a>mksdcard命令</h3><pre><code>mksdcard -l &lt;label&gt; &lt;size&gt; &lt;file&gt; #好处：可以在不同设备之间共享SD卡
-</code></pre><h3 id="SQLite命令"><a href="#SQLite命令" class="headerlink" title="SQLite命令"></a>SQLite命令</h3><pre><code>sqlite3 [databasename].db #进入哪个数据库
-sqlite&gt;.tables #显示所有的表
-</code></pre><h3 id="CMD命令"><a href="#CMD命令" class="headerlink" title="CMD命令"></a>CMD命令</h3><pre><code>netstat -a -o 5037 #查看端口占用情况
-tasklist /fi &quot;pid eq 5384&quot; #查看占用该端口的应用[5384为上一步查询出来的PID]
-</code></pre>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">adb <span class="built_in">version</span> <span class="comment">#查看版本</span></div><div class="line">adb install D:\HelloWorld.apk <span class="comment">#安装指定目录中的apk文件</span></div><div class="line">adb -s emulator<span class="number">-5554</span> install HelloWorld.apk <span class="comment">#安装应用到指定模拟器</span></div><div class="line">adb install -r demo.apk <span class="comment">#保留数据和缓存文件，重新安装apk</span></div><div class="line">adb install -s demo.apk <span class="comment">#安装apk到SD卡</span></div><div class="line">adb uninstall -k [包名] <span class="comment">#卸载，-k为卸载软件但是保留配置和缓存文件；但是在此命令添加-k参数会报错，可以在adb shell命令中，执行pm uninstall -k [包名]实现相同的功能；</span></div><div class="line">adb push &lt;<span class="built_in">local</span>&gt; &lt;remote&gt; <span class="comment">#从本地复制文件到模拟器</span></div><div class="line">adb pull &lt;remote&gt; &lt;<span class="built_in">local</span>&gt; <span class="comment">#从模拟器到本地</span></div><div class="line">adb <span class="built_in">get</span>-serialno <span class="comment">#获取设备序列号</span></div><div class="line">adb devices <span class="comment">#查看可用模拟器列表</span></div><div class="line">adb <span class="built_in">shell</span> <span class="comment">#进入Shell</span></div><div class="line">reboot -p <span class="comment">#关机 [shell下命令]</span></div><div class="line">adb <span class="built_in">kill</span>-server/<span class="built_in">start</span>-server <span class="comment">#启动、停止模拟器服务</span></div><div class="line">adb logcat -s [tag] <span class="comment">#查看LOG信息</span></div><div class="line">adb <span class="built_in">shell</span> cat /sys/class/net/wlan0/address <span class="comment">#获取Mac地址</span></div><div class="line">adb <span class="built_in">shell</span> getprop ro.product.model <span class="comment">#获取设备型号</span></div><div class="line">adb <span class="built_in">shell</span> getprop ro.build.<span class="built_in">version</span>.release <span class="comment">#查看Android系统版本</span></div><div class="line">adb <span class="built_in">shell</span> wm size <span class="comment">#查看屏幕分辨率</span></div><div class="line">adb <span class="built_in">shell</span> wm density <span class="comment">#查看屏幕密度</span></div><div class="line">adb <span class="built_in">shell</span> getprop ro.product.cpu.abi <span class="comment">#查看连接手机的CPU核心</span></div><div class="line">adb <span class="built_in">shell</span> pm list packages <span class="comment">#列出手机装的所有app的包名</span></div><div class="line">adb <span class="built_in">shell</span> pm list packages -s <span class="comment">#列出系统应用的包名</span></div><div class="line">adb <span class="built_in">shell</span> pm list packages <span class="number">-3</span> <span class="comment">#第三方应用的包名</span></div><div class="line">adb <span class="built_in">shell</span> pm list packages | grep qq <span class="comment">#使用grep过滤</span></div><div class="line">adb <span class="built_in">shell</span> pm <span class="built_in">clear</span> &lt;packagename&gt; <span class="comment">#清除应用数据与缓存</span></div><div class="line">adb <span class="built_in">shell</span> pm list permissions <span class="comment">#查询系统中支持的许可列表</span></div><div class="line">adb <span class="built_in">shell</span> am <span class="built_in">start</span> -n com.ilancuo.demo/.ui.SplashActivity <span class="comment">#启动应用</span></div><div class="line">adb <span class="built_in">shell</span> am force-<span class="built_in">stop</span> &lt;packagename&gt; <span class="comment">#强制停止应用</span></div><div class="line">adb <span class="built_in">shell</span> netstat -ano <span class="comment">#查看端口占用情况，然后根据PID去任务管理器里面寻找相应的进程</span></div><div class="line">adb <span class="built_in">shell</span> dumpsys activity <span class="comment">#ActivityManager 系统服务的相关信息，这些信息包括 Activity，Broadcast，Service 和 ContentProvider</span></div><div class="line">adb <span class="built_in">shell</span> dumpsys meminfo <span class="comment">#内存使用信息</span></div><div class="line">adb <span class="built_in">shell</span> dumpsys procstats –hours <span class="number">3</span> <span class="comment">#查看过去 3 小时内，进程的使用情况</span></div></pre></td></tr></table></figure>
+<h3 id="android命令"><a href="#android命令" class="headerlink" title="android命令"></a>android命令</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">android <span class="built_in">list</span> targets <span class="comment">#查看可用的Android平台：</span></div><div class="line">android <span class="built_in">list</span> avd <span class="comment">#显示系统中全部AVD（模拟器）</span></div></pre></td></tr></table></figure>
+<h3 id="mksdcard命令"><a href="#mksdcard命令" class="headerlink" title="mksdcard命令"></a>mksdcard命令</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mksdcard -l <span class="params">&lt;label&gt;</span> <span class="params">&lt;size&gt;</span> <span class="params">&lt;file&gt;</span> <span class="meta">#好处：可以在不同设备之间共享SD卡</span></div></pre></td></tr></table></figure>
+<h3 id="SQLite命令"><a href="#SQLite命令" class="headerlink" title="SQLite命令"></a>SQLite命令</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sqlite3 [databasename]<span class="selector-class">.db</span> #进入哪个数据库</div><div class="line">sqlite&gt;<span class="selector-class">.tables</span> #显示所有的表</div></pre></td></tr></table></figure>
+<h3 id="CMD命令"><a href="#CMD命令" class="headerlink" title="CMD命令"></a>CMD命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">netstat <span class="_">-a</span> -o 5037 <span class="comment">#查看端口占用情况</span></div><div class="line">tasklist /<span class="keyword">fi</span> <span class="string">"pid eq 5384"</span> <span class="comment">#查看占用该端口的应用[5384为上一步查询出来的PID]</span></div></pre></td></tr></table></figure>
       
 
       
@@ -484,15 +449,15 @@ tasklist /fi &quot;pid eq 5384&quot; #查看占用该端口的应用[5384为上�
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Properties</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
               </li>
              
               <li class="article-tag-list-item">

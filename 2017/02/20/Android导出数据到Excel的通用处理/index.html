@@ -9,7 +9,7 @@
   <title>Android导出数据到Excel的通用处理 | 小情调男</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="通过gradle安装Apache的poi，采用的版本为当前最新版3.16-beta2:
- compile &amp;#39;org.apache.poi:poi:3.16-beta2&amp;#39;
+ 1compile &apos;org.apache.poi:poi:3.16-beta2&apos;
 
 要添加表头，另外有些字段需要忽略，因此通过自定义注解对数据进行规范。注解类代码如下：">
 <meta property="og:type" content="article">
@@ -17,14 +17,14 @@
 <meta property="og:url" content="http://ilancuo.com/2017/02/20/Android导出数据到Excel的通用处理/index.html">
 <meta property="og:site_name" content="小情调男">
 <meta property="og:description" content="通过gradle安装Apache的poi，采用的版本为当前最新版3.16-beta2:
- compile &amp;#39;org.apache.poi:poi:3.16-beta2&amp;#39;
+ 1compile &apos;org.apache.poi:poi:3.16-beta2&apos;
 
 要添加表头，另外有些字段需要忽略，因此通过自定义注解对数据进行规范。注解类代码如下：">
 <meta property="og:updated_time" content="2017-02-23T13:23:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android导出数据到Excel的通用处理">
 <meta name="twitter:description" content="通过gradle安装Apache的poi，采用的版本为当前最新版3.16-beta2:
- compile &amp;#39;org.apache.poi:poi:3.16-beta2&amp;#39;
+ 1compile &apos;org.apache.poi:poi:3.16-beta2&apos;
 
 要添加表头，另外有些字段需要忽略，因此通过自定义注解对数据进行规范。注解类代码如下：">
   
@@ -186,133 +186,23 @@
       
         <ol>
 <li><p>通过gradle安装Apache的poi，采用的版本为当前最新版3.16-beta2:</p>
-<pre><code> compile &#39;org.apache.poi:poi:3.16-beta2&#39;
-</code></pre></li>
+ <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'org.apache.poi:poi:3.16-beta2'</span></div></pre></td></tr></table></figure>
+</li>
 <li><p>要添加表头，另外有些字段需要忽略，因此通过自定义注解对数据进行规范。注解类代码如下：</p>
 <a id="more"></a>
-<pre><code> @Retention(RetentionPolicy.RUNTIME)
- @Target(ElementType.FIELD)
- public @interface ExcelAttribute {
-
-     String desc();
-
-     int col()
-             default 0;
- }
-</code></pre><p> 在该注解中，我们定义了两个量：desc和col。desc为该字段的描述，即为：表头；col为该字段在生成Excel文件中的列；</p>
+ <figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="variable">@Target</span>(ElementType.FIELD)</div><div class="line">public <span class="variable">@interface</span> ExcelAttribute &#123;</div><div class="line"></div><div class="line">	<span class="selector-tag">String</span> <span class="selector-tag">desc</span>();</div><div class="line"></div><div class="line">	<span class="selector-tag">int</span> <span class="selector-tag">col</span>()</div><div class="line">               <span class="selector-tag">default</span> <span class="selector-tag">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 在该注解中，我们定义了两个量：desc和col。desc为该字段的描述，即为：表头；col为该字段在生成Excel文件中的列；</p>
 </li>
 <li><p>在实体类中使用该注解：</p>
-<pre><code> //User.java
-
- @ExcelAttribute(desc = &quot;ID&quot;, col = 0)
- private String id;
- @ExcelAttribute(desc = &quot;姓名&quot;, col = 1)
- private String name;
- @ExcelAttribute(desc = &quot;年龄&quot;, col = 2)
- private String age;
- @ExcelAttribute(desc = &quot;电话&quot;, col = 3)
- private String phone;
- @ExcelAttribute(desc = &quot;省/直辖市/自治区&quot;, col = 4)
- private String province;
- @ExcelAttribute(desc = &quot;市&quot;, col = 5)
- private String city;
- @ExcelAttribute(desc = &quot;区&quot;, col = 6)
- private String area;
- private String school; //该字段没有使用注解，表示Excel中不需要该字段
-
- //Constructor、Getter、Setter方法 略
-</code></pre></li>
+ <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//User.java</span></div><div class="line">	</div><div class="line"><span class="meta">@ExcelAttribute(desc = <span class="meta-string">"ID"</span>, col = 0)</span></div><div class="line"><span class="keyword">private</span> String id;</div><div class="line"><span class="meta">@ExcelAttribute(desc = <span class="meta-string">"姓名"</span>, col = 1)</span></div><div class="line"><span class="keyword">private</span> String name;</div><div class="line"><span class="meta">@ExcelAttribute(desc = <span class="meta-string">"年龄"</span>, col = 2)</span></div><div class="line"><span class="keyword">private</span> String age;</div><div class="line"><span class="meta">@ExcelAttribute(desc = <span class="meta-string">"电话"</span>, col = 3)</span></div><div class="line"><span class="keyword">private</span> String phone;</div><div class="line"><span class="meta">@ExcelAttribute(desc = <span class="meta-string">"省/直辖市/自治区"</span>, col = 4)</span></div><div class="line"><span class="keyword">private</span> String province;</div><div class="line"><span class="meta">@ExcelAttribute(desc = <span class="meta-string">"市"</span>, col = 5)</span></div><div class="line"><span class="keyword">private</span> String city;</div><div class="line"><span class="meta">@ExcelAttribute(desc = <span class="meta-string">"区"</span>, col = 6)</span></div><div class="line"><span class="keyword">private</span> String area;</div><div class="line"><span class="keyword">private</span> String school; <span class="comment">//该字段没有使用注解，表示Excel中不需要该字段</span></div><div class="line">	</div><div class="line"><span class="comment">//Constructor、Getter、Setter方法 略</span></div></pre></td></tr></table></figure>
+</li>
 <li><p>采用反射的方式拿到注解中的描述和对象的值，生成xml即可，完整的代码如下：</p>
-<pre><code> import android.os.Environment;
-
- import org.apache.poi.hssf.usermodel.HSSFWorkbook;
- import org.apache.poi.ss.usermodel.Cell;
- import org.apache.poi.ss.usermodel.Row;
- import org.apache.poi.ss.usermodel.Sheet;
- import org.apache.poi.ss.usermodel.Workbook;
-
- import java.io.File;
- import java.io.FileOutputStream;
- import java.io.IOException;
- import java.lang.reflect.Field;
- import java.util.ArrayList;
- import java.util.HashMap;
- import java.util.List;
- import java.util.Map;
-
- /**
-  * 导出Excel文件
-  *
-  * Created ilancuo on 2017/2/7.
-  */
- public class ExcelUtil {
-
-     private static String PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
-
-     public static &lt;T&gt; boolean export(List&lt;T&gt; t, String fileName) {
-         if (t == null || t.size() == 0) return false;
-
-         Workbook workbook = new HSSFWorkbook(); //创建Excel
-         Sheet sheet = workbook.createSheet(); //创建Sheet
-
-         List&lt;Map&lt;Integer, String&gt;&gt; list = new ArrayList&lt;&gt;();
-
-         Map&lt;Integer, String&gt; titleMap = new HashMap&lt;&gt;(); //构建表头
-         T tt = t.get(0);
-         Field[] fields = tt.getClass().getDeclaredFields();
-         for (Field field : fields) {
-             field.setAccessible(true);
-             ExcelAttribute attribute = field.getAnnotation(ExcelAttribute.class);
-             if (attribute != null) {
-                 titleMap.put(attribute.col(), attribute.desc()); //key为注解中的col，value为注解中的desc
-             }
-         }
-         list.add(titleMap);
-
-         for (int i = 0; i &lt; t.size(); i++) { //构建表的数据
-             Field[] fs = t.get(i).getClass().getDeclaredFields();
-             Map&lt;Integer, String&gt; map = new HashMap&lt;&gt;();
-             for (Field f : fs) {
-                 f.setAccessible(true);
-                 ExcelAttribute attr = f.getAnnotation(ExcelAttribute.class);
-                 if (attr != null) {
-                     try {
-                         map.put(attr.col(), (String) f.get(t.get(i)));
-                     } catch (IllegalAccessException e) {
-                         e.printStackTrace();
-                     }
-                 }
-             }
-             list.add(map);
-         }
-
-         for (int i = 0; i &lt; list.size(); i++) {
-             Row row = sheet.createRow(i);
-             Map&lt;Integer, String&gt; cMap = list.get(i);
-             for (int j = 0; j &lt; cMap.size(); j++) {
-                 String value = cMap.get(j);
-                 Cell cell = row.createCell(j);
-                 cell.setCellValue(value);
-             }
-         }
-
-         try {
-             File file = new File(PATH + File.separator + fileName);
-             if (file.exists()) file.delete();
-             FileOutputStream fos = new FileOutputStream(file);
-             workbook.write(fos);
-             fos.close();
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
-         return true;
-     }
- }
-</code></pre></li>
+ <figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> android.os.Environment;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.poi.hssf.usermodel.HSSFWorkbook;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Cell;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Row;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Sheet;</div><div class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.Workbook;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.<span class="built_in">File</span>;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Field;</div><div class="line"><span class="keyword">import</span> java.util.ArrayList;</div><div class="line"><span class="keyword">import</span> java.util.HashMap;</div><div class="line"><span class="keyword">import</span> java.util.List;</div><div class="line"><span class="keyword">import</span> java.util.Map;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 导出Excel文件</div><div class="line"> *</div><div class="line"> * Created ilancuo on 2017/2/7.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> ExcelUtil &#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">String</span> PATH = Environment.getExternalStorageDirectory().getAbsolutePath();</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">boolean</span> <span class="keyword">export</span>(List&lt;T&gt; t, <span class="keyword">String</span> fileName) &#123;</div><div class="line">		<span class="built_in">if</span> (t == null || t.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="built_in">return</span> false;</div><div class="line"></div><div class="line">		Workbook workbook = <span class="keyword">new</span> HSSFWorkbook(); <span class="comment">//创建Excel</span></div><div class="line">		Sheet sheet = workbook.createSheet(); <span class="comment">//创建Sheet</span></div><div class="line"></div><div class="line">		List&lt;Map&lt;Integer, <span class="keyword">String</span>&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">		Map&lt;Integer, <span class="keyword">String</span>&gt; titleMap = <span class="keyword">new</span> HashMap&lt;&gt;(); <span class="comment">//构建表头</span></div><div class="line">		T tt = t.<span class="built_in">get</span>(<span class="number">0</span>);</div><div class="line">		Field[] fields = tt.getClass().getDeclaredFields();</div><div class="line">		<span class="built_in">for</span> (Field field : fields) &#123;</div><div class="line">			field.setAccessible(true);</div><div class="line">			ExcelAttribute attribute = field.getAnnotation(ExcelAttribute.<span class="keyword">class</span>);</div><div class="line">			<span class="built_in">if</span> (attribute != null) &#123;</div><div class="line">				titleMap.<span class="built_in">put</span>(attribute.col(), attribute.desc()); <span class="comment">//key为注解中的col，value为注解中的desc</span></div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		list.add(titleMap);</div><div class="line"></div><div class="line">		<span class="built_in">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t.<span class="built_in">size</span>(); i++) &#123; <span class="comment">//构建表的数据</span></div><div class="line">			Field[] fs = t.<span class="built_in">get</span>(i).getClass().getDeclaredFields();</div><div class="line">			Map&lt;Integer, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">			<span class="built_in">for</span> (Field f : fs) &#123;</div><div class="line">				f.setAccessible(true);</div><div class="line">				ExcelAttribute attr = f.getAnnotation(ExcelAttribute.<span class="keyword">class</span>);</div><div class="line">				<span class="built_in">if</span> (attr != null) &#123;</div><div class="line">					<span class="built_in">try</span> &#123;</div><div class="line">						<span class="built_in">map</span>.<span class="built_in">put</span>(attr.col(), (<span class="keyword">String</span>) f.<span class="built_in">get</span>(t.<span class="built_in">get</span>(i)));</div><div class="line">					&#125; <span class="built_in">catch</span> (IllegalAccessException e) &#123;</div><div class="line">						e.printStackTrace();</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			list.add(<span class="built_in">map</span>);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="built_in">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.<span class="built_in">size</span>(); i++) &#123;</div><div class="line">			Row row = sheet.createRow(i);</div><div class="line">			Map&lt;Integer, <span class="keyword">String</span>&gt; cMap = list.<span class="built_in">get</span>(i);</div><div class="line">			<span class="built_in">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cMap.<span class="built_in">size</span>(); j++) &#123;</div><div class="line">				<span class="keyword">String</span> value = cMap.<span class="built_in">get</span>(j);</div><div class="line">				Cell cell = row.createCell(j);</div><div class="line">				cell.setCellValue(value);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="built_in">try</span> &#123;</div><div class="line">			<span class="built_in">File</span> file = <span class="keyword">new</span> <span class="built_in">File</span>(PATH + <span class="built_in">File</span>.separator + fileName);</div><div class="line">			<span class="built_in">if</span> (file.<span class="built_in">exists</span>()) file.<span class="keyword">delete</span>();</div><div class="line">			FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(file);</div><div class="line">			workbook.<span class="built_in">write</span>(fos);</div><div class="line">			fos.<span class="built_in">close</span>();</div><div class="line">		&#125; <span class="built_in">catch</span> (IOException e) &#123;</div><div class="line">			e.printStackTrace();</div><div class="line">		&#125;</div><div class="line">		<span class="built_in">return</span> true;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>注意：别忘了添加读写SD卡的权限</p>
-<pre><code>&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
-</code></pre>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-permission android:<span class="built_in">name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span> /&gt;</div></pre></td></tr></table></figure>
+
       
 
       
@@ -572,15 +462,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Properties</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
               </li>
              
               <li class="article-tag-list-item">

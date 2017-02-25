@@ -187,189 +187,7 @@
 <p> 代码如下：</p>
 </li>
 </ol>
-<pre><code>import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewConfiguration;
-
-/**
- * 可缩放的矩形
- * &lt;p/&gt;
- * Created by ilancuo on 2017/2/16.
- */
-public class ScaledRect extends View {
-    private int mTouchSlop;
-
-    private float touchX, touchY; //记录上次触摸的点
-    private float leftX, leftY; //矩形的左上角的点
-    private float width, height; //矩形的宽和高
-
-    private RectF rectF;
-    private Paint linePaint;
-
-    private Position position = Position.OUTER;
-
-    private static final float touchWidth = 20; //缩放时触摸区域的有效高度
-
-    /**
-     * 点击位置
-     */
-    private enum Position {
-        LEFT, TOP, RIGHT, BOTTOM, CENTER, LEFT_TOP, RIGHT_TOP, RIGHT_BOTTOM, LEFT_BOTTOM, OUTER
-    }
-
-    public ScaledRect(Context context) {
-        this(context, null);
-    }
-
-    public ScaledRect(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public ScaledRect(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
-    private void init() {
-        initSlop();
-        initLinePaint();
-        rectF = new RectF();
-    }
-
-    private void initLinePaint() {
-        linePaint = new Paint();
-        linePaint.setStrokeWidth(1f);
-        linePaint.setStyle(Paint.Style.STROKE);
-        linePaint.setColor(Color.BLUE);
-    }
-
-    private void initSlop() {
-        final ViewConfiguration configuration = ViewConfiguration
-                .get(getContext());
-        mTouchSlop = configuration.getScaledTouchSlop();
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        RectF tempRectF = new RectF(rectF);
-        tempRectF.sort();
-        canvas.drawRect(tempRectF, linePaint);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                float currentX = event.getX();
-                float currentY = event.getY();
-                touchX = currentX;
-                touchY = currentY;
-                if (currentX &gt; leftX - touchWidth &amp;&amp; currentX &lt; leftX + touchWidth
-                        &amp;&amp; currentY &gt; leftY - touchWidth &amp;&amp; currentY &lt; leftY + touchWidth) { //左上角区域
-                    position = Position.LEFT_TOP;
-                } else if (currentX &gt; leftX + width - touchWidth &amp;&amp; currentX &lt; leftX + width + touchWidth
-                        &amp;&amp; currentY &gt; leftY - touchWidth &amp;&amp; currentY &lt; leftY + touchWidth) { //右上角区域
-                    position = Position.RIGHT_TOP;
-                } else if (currentX &gt; leftX - touchWidth &amp;&amp; currentX &lt; leftX + touchWidth
-                        &amp;&amp; currentY &gt; leftY + height - touchWidth &amp;&amp; currentY &lt; leftY + height + touchWidth) { //左下角区域
-                    position = Position.LEFT_BOTTOM;
-                } else if (currentX &gt; leftX + width - touchWidth &amp;&amp; currentX &lt; leftX + width + touchWidth
-                        &amp;&amp; currentY &gt; leftY + height - touchWidth &amp;&amp; currentX &lt; leftX + width + touchWidth) { //右下角区域
-                    position = Position.RIGHT_BOTTOM;
-                } else if (currentX &gt; leftX - touchWidth &amp;&amp; currentX &lt; leftX + touchWidth
-                        &amp;&amp; currentY &gt; leftY + touchWidth &amp;&amp; currentY &lt; leftY + height + touchWidth) { //左侧
-                    position = Position.LEFT;
-                } else if (currentX &gt; leftX + touchWidth &amp;&amp; currentX &lt; leftX + width - touchWidth
-                        &amp;&amp; currentY &gt; leftY - touchWidth &amp;&amp; currentY &lt; leftY + touchWidth) { //上方
-                    position = Position.TOP;
-                } else if (currentX &gt; leftX + width - touchWidth &amp;&amp; currentX &lt; leftX + width + touchWidth
-                        &amp;&amp; currentY &gt; leftY + touchWidth &amp;&amp; currentY &lt; leftY + width - touchWidth) { //右侧
-                    position = Position.RIGHT;
-                } else if (currentX &gt; leftX + touchWidth &amp;&amp; currentX &lt; leftX + width + touchWidth
-                        &amp;&amp; currentY &gt; leftY + height - touchWidth &amp;&amp; currentY &lt; leftY + height + touchWidth) { //下方
-                    position = Position.BOTTOM;
-                } else if (currentX &gt; leftX + touchWidth &amp;&amp; currentX &lt; leftX + width - touchWidth
-                        &amp;&amp; currentY &gt; leftY + touchWidth &amp;&amp; currentY &lt; leftY + height - touchWidth) { //中间区域
-                    position = Position.CENTER;
-                } else { //外部区域
-                    rectF.setEmpty();
-                    leftX = event.getX();
-                    leftY = event.getY();
-                    rectF.set(new RectF(currentX, currentY, currentX, currentY));
-                    position = Position.OUTER;
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                switch (position) {
-                    case LEFT_TOP:
-                        rectF.left = event.getX();
-                        rectF.top = event.getY();
-                        break;
-                    case LEFT_BOTTOM:
-                        rectF.left = event.getX();
-                        rectF.bottom = event.getY();
-                        break;
-                    case RIGHT_TOP:
-                        rectF.right = event.getX();
-                        rectF.top = event.getY();
-                        break;
-                    case RIGHT_BOTTOM:
-                        rectF.right = event.getX();
-                        rectF.bottom = event.getY();
-                        break;
-                    case LEFT:
-                        rectF.left = event.getX();
-                        break;
-                    case TOP:
-                        rectF.top = event.getY();
-                        break;
-                    case RIGHT:
-                        rectF.right = event.getX();
-                        break;
-                    case BOTTOM:
-                        rectF.bottom = event.getY();
-                        break;
-                    case CENTER: //矩形内，移动矩形
-                        float tdx = event.getX() - touchX;
-                        float tdy = event.getY() - touchY;
-                        rectF.left = leftX + tdx;
-                        rectF.top = leftY + tdy;
-                        rectF.right = rectF.left + width;
-                        rectF.bottom = rectF.top + height;
-                        break;
-                    default: //矩形外，重新绘制矩形
-                        float dx = event.getX() - leftX;
-                        float dy = event.getY() - leftY;
-                        float absX = Math.abs(dx);
-                        float absY = Math.abs(dy);
-                        double sqrt = Math.sqrt(absX * absX + absY * absY);
-                        if (sqrt &gt; mTouchSlop) { //矩形可见
-                            rectF.right = event.getX();
-                            rectF.bottom = event.getY();
-                        }
-                        break;
-                }
-                postInvalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                rectF.sort();
-                leftX = rectF.left;
-                leftY = rectF.top;
-                width = rectF.width();
-                height = rectF.height();
-                break;
-        }
-        return true;
-    }
-
-}
-</code></pre>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> android.content.Context;</div><div class="line"><span class="keyword">import</span> android.graphics.Canvas;</div><div class="line"><span class="keyword">import</span> android.graphics.Color;</div><div class="line"><span class="keyword">import</span> android.graphics.Paint;</div><div class="line"><span class="keyword">import</span> android.graphics.RectF;</div><div class="line"><span class="keyword">import</span> android.util.AttributeSet;</div><div class="line"><span class="keyword">import</span> android.view.MotionEvent;</div><div class="line"><span class="keyword">import</span> android.view.View;</div><div class="line"><span class="keyword">import</span> android.view.ViewConfiguration;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 可缩放的矩形</div><div class="line"> * &lt;p/&gt;</div><div class="line"> * Created by ilancuo on 2017/2/16.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> ScaledRect extends View &#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mTouchSlop;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> touchX, touchY; <span class="comment">//记录上次触摸的点</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> leftX, leftY; <span class="comment">//矩形的左上角的点</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> <span class="built_in">width</span>, <span class="built_in">height</span>; <span class="comment">//矩形的宽和高</span></div><div class="line"></div><div class="line">    <span class="keyword">private</span> RectF rectF;</div><div class="line">    <span class="keyword">private</span> Paint linePaint;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Position <span class="built_in">position</span> = Position.OUTER;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">float</span> touchWidth = <span class="number">20</span>; <span class="comment">//缩放时触摸区域的有效高度</span></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 点击位置</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> Position &#123;</div><div class="line">        LEFT, TOP, RIGHT, BOTTOM, CENTER, LEFT_TOP, RIGHT_TOP, RIGHT_BOTTOM, LEFT_BOTTOM, OUTER</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> ScaledRect(Context context) &#123;</div><div class="line">        <span class="keyword">this</span>(context, null);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> ScaledRect(Context context, AttributeSet attrs) &#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs, <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> ScaledRect(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr) &#123;</div><div class="line">        super(context, attrs, defStyleAttr);</div><div class="line">        init();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">void</span> init() &#123;</div><div class="line">        initSlop();</div><div class="line">        initLinePaint();</div><div class="line">        rectF = <span class="keyword">new</span> RectF();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">void</span> initLinePaint() &#123;</div><div class="line">        linePaint = <span class="keyword">new</span> Paint();</div><div class="line">        linePaint.setStrokeWidth(<span class="number">1</span>f);</div><div class="line">        linePaint.setStyle(Paint.Style.STROKE);</div><div class="line">        linePaint.setColor(Color.BLUE);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">void</span> initSlop() &#123;</div><div class="line">        final ViewConfiguration configuration = ViewConfiguration</div><div class="line">                .<span class="built_in">get</span>(getContext());</div><div class="line">        mTouchSlop = configuration.getScaledTouchSlop();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> onDraw(Canvas canvas) &#123;</div><div class="line">        RectF tempRectF = <span class="keyword">new</span> RectF(rectF);</div><div class="line">        tempRectF.sort();</div><div class="line">        canvas.drawRect(tempRectF, linePaint);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> onTouchEvent(MotionEvent event) &#123;</div><div class="line">        <span class="built_in">switch</span> (event.getActionMasked()) &#123;</div><div class="line">            <span class="built_in">case</span> MotionEvent.ACTION_DOWN:</div><div class="line">                <span class="keyword">float</span> currentX = event.getX();</div><div class="line">                <span class="keyword">float</span> currentY = event.getY();</div><div class="line">                touchX = currentX;</div><div class="line">                touchY = currentY;</div><div class="line">                <span class="built_in">if</span> (currentX &gt; leftX - touchWidth &amp;&amp; currentX &lt; leftX + touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY - touchWidth &amp;&amp; currentY &lt; leftY + touchWidth) &#123; <span class="comment">//左上角区域</span></div><div class="line">                    <span class="built_in">position</span> = Position.LEFT_TOP;</div><div class="line">                &#125; <span class="built_in">else</span> <span class="built_in">if</span> (currentX &gt; leftX + <span class="built_in">width</span> - touchWidth &amp;&amp; currentX &lt; leftX + <span class="built_in">width</span> + touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY - touchWidth &amp;&amp; currentY &lt; leftY + touchWidth) &#123; <span class="comment">//右上角区域</span></div><div class="line">                    <span class="built_in">position</span> = Position.RIGHT_TOP;</div><div class="line">                &#125; <span class="built_in">else</span> <span class="built_in">if</span> (currentX &gt; leftX - touchWidth &amp;&amp; currentX &lt; leftX + touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY + <span class="built_in">height</span> - touchWidth &amp;&amp; currentY &lt; leftY + <span class="built_in">height</span> + touchWidth) &#123; <span class="comment">//左下角区域</span></div><div class="line">                    <span class="built_in">position</span> = Position.LEFT_BOTTOM;</div><div class="line">                &#125; <span class="built_in">else</span> <span class="built_in">if</span> (currentX &gt; leftX + <span class="built_in">width</span> - touchWidth &amp;&amp; currentX &lt; leftX + <span class="built_in">width</span> + touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY + <span class="built_in">height</span> - touchWidth &amp;&amp; currentX &lt; leftX + <span class="built_in">width</span> + touchWidth) &#123; <span class="comment">//右下角区域</span></div><div class="line">                    <span class="built_in">position</span> = Position.RIGHT_BOTTOM;</div><div class="line">                &#125; <span class="built_in">else</span> <span class="built_in">if</span> (currentX &gt; leftX - touchWidth &amp;&amp; currentX &lt; leftX + touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY + touchWidth &amp;&amp; currentY &lt; leftY + <span class="built_in">height</span> + touchWidth) &#123; <span class="comment">//左侧</span></div><div class="line">                    <span class="built_in">position</span> = Position.LEFT;</div><div class="line">                &#125; <span class="built_in">else</span> <span class="built_in">if</span> (currentX &gt; leftX + touchWidth &amp;&amp; currentX &lt; leftX + <span class="built_in">width</span> - touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY - touchWidth &amp;&amp; currentY &lt; leftY + touchWidth) &#123; <span class="comment">//上方</span></div><div class="line">                    <span class="built_in">position</span> = Position.TOP;</div><div class="line">                &#125; <span class="built_in">else</span> <span class="built_in">if</span> (currentX &gt; leftX + <span class="built_in">width</span> - touchWidth &amp;&amp; currentX &lt; leftX + <span class="built_in">width</span> + touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY + touchWidth &amp;&amp; currentY &lt; leftY + <span class="built_in">width</span> - touchWidth) &#123; <span class="comment">//右侧</span></div><div class="line">                    <span class="built_in">position</span> = Position.RIGHT;</div><div class="line">                &#125; <span class="built_in">else</span> <span class="built_in">if</span> (currentX &gt; leftX + touchWidth &amp;&amp; currentX &lt; leftX + <span class="built_in">width</span> + touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY + <span class="built_in">height</span> - touchWidth &amp;&amp; currentY &lt; leftY + <span class="built_in">height</span> + touchWidth) &#123; <span class="comment">//下方</span></div><div class="line">                    <span class="built_in">position</span> = Position.BOTTOM;</div><div class="line">                &#125; <span class="built_in">else</span> <span class="built_in">if</span> (currentX &gt; leftX + touchWidth &amp;&amp; currentX &lt; leftX + <span class="built_in">width</span> - touchWidth</div><div class="line">                        &amp;&amp; currentY &gt; leftY + touchWidth &amp;&amp; currentY &lt; leftY + <span class="built_in">height</span> - touchWidth) &#123; <span class="comment">//中间区域</span></div><div class="line">                    <span class="built_in">position</span> = Position.CENTER;</div><div class="line">                &#125; <span class="built_in">else</span> &#123; <span class="comment">//外部区域</span></div><div class="line">                    rectF.setEmpty();</div><div class="line">                    leftX = event.getX();</div><div class="line">                    leftY = event.getY();</div><div class="line">                    rectF.set(<span class="keyword">new</span> RectF(currentX, currentY, currentX, currentY));</div><div class="line">                    <span class="built_in">position</span> = Position.OUTER;</div><div class="line">                &#125;</div><div class="line">                <span class="built_in">break</span>;</div><div class="line">            <span class="built_in">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">                <span class="built_in">switch</span> (<span class="built_in">position</span>) &#123;</div><div class="line">                    <span class="built_in">case</span> LEFT_TOP:</div><div class="line">                        rectF.left = event.getX();</div><div class="line">                        rectF.top = event.getY();</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">case</span> LEFT_BOTTOM:</div><div class="line">                        rectF.left = event.getX();</div><div class="line">                        rectF.bottom = event.getY();</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">case</span> RIGHT_TOP:</div><div class="line">                        rectF.right = event.getX();</div><div class="line">                        rectF.top = event.getY();</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">case</span> RIGHT_BOTTOM:</div><div class="line">                        rectF.right = event.getX();</div><div class="line">                        rectF.bottom = event.getY();</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">case</span> LEFT:</div><div class="line">                        rectF.left = event.getX();</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">case</span> TOP:</div><div class="line">                        rectF.top = event.getY();</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">case</span> RIGHT:</div><div class="line">                        rectF.right = event.getX();</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">case</span> BOTTOM:</div><div class="line">                        rectF.bottom = event.getY();</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">case</span> CENTER: <span class="comment">//矩形内，移动矩形</span></div><div class="line">                        <span class="keyword">float</span> tdx = event.getX() - touchX;</div><div class="line">                        <span class="keyword">float</span> tdy = event.getY() - touchY;</div><div class="line">                        rectF.left = leftX + tdx;</div><div class="line">                        rectF.top = leftY + tdy;</div><div class="line">                        rectF.right = rectF.left + <span class="built_in">width</span>;</div><div class="line">                        rectF.bottom = rectF.top + <span class="built_in">height</span>;</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                    <span class="built_in">default</span>: <span class="comment">//矩形外，重新绘制矩形</span></div><div class="line">                        <span class="keyword">float</span> dx = event.getX() - leftX;</div><div class="line">                        <span class="keyword">float</span> dy = event.getY() - leftY;</div><div class="line">                        <span class="keyword">float</span> absX = Math.<span class="built_in">abs</span>(dx);</div><div class="line">                        <span class="keyword">float</span> absY = Math.<span class="built_in">abs</span>(dy);</div><div class="line">                        <span class="keyword">double</span> <span class="built_in">sqrt</span> = Math.<span class="built_in">sqrt</span>(absX * absX + absY * absY);</div><div class="line">                        <span class="built_in">if</span> (<span class="built_in">sqrt</span> &gt; mTouchSlop) &#123; <span class="comment">//矩形可见</span></div><div class="line">                            rectF.right = event.getX();</div><div class="line">                            rectF.bottom = event.getY();</div><div class="line">                        &#125;</div><div class="line">                        <span class="built_in">break</span>;</div><div class="line">                &#125;</div><div class="line">                postInvalidate();</div><div class="line">                <span class="built_in">break</span>;</div><div class="line">            <span class="built_in">case</span> MotionEvent.ACTION_UP:</div><div class="line">                rectF.sort();</div><div class="line">                leftX = rectF.left;</div><div class="line">                leftY = rectF.top;</div><div class="line">                <span class="built_in">width</span> = rectF.<span class="built_in">width</span>();</div><div class="line">                <span class="built_in">height</span> = rectF.<span class="built_in">height</span>();</div><div class="line">                <span class="built_in">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> true;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
 
       
@@ -638,15 +456,15 @@ public class ScaledRect extends View {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Properties</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
               </li>
              
               <li class="article-tag-list-item">

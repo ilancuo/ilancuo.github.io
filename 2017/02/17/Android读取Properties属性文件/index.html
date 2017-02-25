@@ -189,36 +189,20 @@
 <li>在assets文件夹中创建code.properties文件；</li>
 <li><p>按照key=value的形式进行存储数据，例如：</p>
 <a id="more"></a>
-<pre><code> 1001=用户名为空
- 1002=密码为空
- 1003=用户名或密码错误
-</code></pre></li>
-<li>读取properties文件，代码如下：</li>
+ <figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">1001</span>=用户名为空</div><div class="line"><span class="attr">1002</span>=密码为空</div><div class="line"><span class="attr">1003</span>=用户名或密码错误</div></pre></td></tr></table></figure>
+</li>
+<li><p>读取properties文件，代码如下：</p>
+</li>
 </ol>
-<pre><code>public static String getConByCode(Context context, int code) {
-    Properties properties = new Properties();
-    try {
-        InputStream in = new BufferedInputStream(context.getAssets().open(&quot;code.properties&quot;));
-        properties.load(in);
-        String result = properties.getProperty(String.valueOf(code));
-        in.close();
-        return result;
-    } catch (IOException e) {
-        e.printStackTrace();
-        return &quot;&quot;;
-    }
-}
-</code></pre><ol>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">String</span> getConByCode(Context context, int code) &#123;</div><div class="line">	Properties properties = <span class="keyword">new</span> <span class="type">Properties</span>();</div><div class="line">	<span class="keyword">try</span> &#123;</div><div class="line">		InputStream <span class="keyword">in</span> = <span class="keyword">new</span> <span class="type">BufferedInputStream</span>(context.getAssets().open(<span class="string">"code.properties"</span>));</div><div class="line">		properties.load(<span class="keyword">in</span>);</div><div class="line">		<span class="keyword">String</span> result = properties.getProperty(<span class="keyword">String</span>.valueOf(code));</div><div class="line">		<span class="keyword">in</span>.close();</div><div class="line">		<span class="keyword">return</span> result;</div><div class="line">	&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">		e.printStackTrace();</div><div class="line">		<span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
 <li><p>经测试，存在中文乱码的情况，后来找到原因：Properties 默认是按ISO-8859-1读取的，因此有两种解决方案：</p>
 <ol>
 <li><p>直接以Unicode的方式存储数据，该方法读取出来的中文没有任何问题，但是使用之前需要转化一下；code.properties文件形式如下：</p>
-<pre><code> 1001=\u7528\u6237\u540d\u4e3a\u7a7a
- 1002=\u5bc6\u7801\u4e3a\u7a7a
- 1003=\u7528\u6237\u540d\u6216\u5bc6\u7801\u9519\u8bef
-</code></pre></li>
+ <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1001=<span class="symbol">\u</span>7528<span class="symbol">\u</span>6237<span class="symbol">\u</span>540d<span class="symbol">\u</span>4e3a<span class="symbol">\u</span>7a7a</div><div class="line">1002=<span class="symbol">\u</span>5bc6<span class="symbol">\u</span>7801<span class="symbol">\u</span>4e3a<span class="symbol">\u</span>7a7a</div><div class="line">1003=<span class="symbol">\u</span>7528<span class="symbol">\u</span>6237<span class="symbol">\u</span>540d<span class="symbol">\u</span>6216<span class="symbol">\u</span>5bc6<span class="symbol">\u</span>7801<span class="symbol">\u</span>9519<span class="symbol">\u</span>8bef</div></pre></td></tr></table></figure>
+</li>
 <li><p>修改返回结果的方法为：</p>
-<pre><code> result = new String(result.getBytes(&quot;ISO-8859-1&quot;), &quot;UTF-8&quot;);
-</code></pre></li>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">result = new String(<span class="name">result</span>.getBytes(<span class="string">"ISO-8859-1"</span>), <span class="string">"UTF-8"</span>)<span class="comment">;</span></div></pre></td></tr></table></figure></li>
 </ol>
 </li>
 </ol>
@@ -491,15 +475,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Properties</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
               </li>
              
               <li class="article-tag-list-item">
