@@ -10,21 +10,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="安装pyCharm，官网下载地址
 首先安装virtualenv，命令如下：
- 123sudo easy_install virtualenv	或者sudo pip install virtualenv">
+ sudo easy_install virtualenv    
+ 或者
+ sudo pip install virtualenv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac下使用Flask框架开发Python">
 <meta property="og:url" content="http://ilancuo.com/2017/01/18/Mac下使用Flask框架开发Python/index.html">
 <meta property="og:site_name" content="小情调男">
 <meta property="og:description" content="安装pyCharm，官网下载地址
 首先安装virtualenv，命令如下：
- 123sudo easy_install virtualenv	或者sudo pip install virtualenv">
+ sudo easy_install virtualenv    
+ 或者
+ sudo pip install virtualenv">
 <meta property="og:image" content="http://7xk1uj.com1.z0.glb.clouddn.com//image/blog/python.png">
 <meta property="og:updated_time" content="2017-02-23T12:41:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac下使用Flask框架开发Python">
 <meta name="twitter:description" content="安装pyCharm，官网下载地址
 首先安装virtualenv，命令如下：
- 123sudo easy_install virtualenv	或者sudo pip install virtualenv">
+ sudo easy_install virtualenv    
+ 或者
+ sudo pip install virtualenv">
 <meta name="twitter:image" content="http://7xk1uj.com1.z0.glb.clouddn.com//image/blog/python.png">
   
     <link rel="alternative" href="/atom.xml" title="小情调男" type="application/atom+xml">
@@ -186,30 +192,41 @@
         <ol>
 <li>安装pyCharm，<a href="https://www.jetbrains.com/pycharm/download/" target="_blank" rel="external">官网下载地址</a></li>
 <li><p>首先安装virtualenv，命令如下：</p>
- <figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo easy_install virtualenv	</div><div class="line">或者</div><div class="line">sudo pip <span class="keyword">install</span> virtualenv</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<a id="more"></a>
-<ol>
+<pre><code> sudo easy_install virtualenv    
+ 或者
+ sudo pip install virtualenv
+</code></pre><a id="more"></a></li>
 <li><p>创建自己的环境：</p>
- <figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">mkdir</span> pyPro</div><div class="line"><span class="built_in">cd</span> pyPro</div><div class="line">virtualenv venv</div></pre></td></tr></table></figure>
-</li>
+<pre><code> mkdir pyPro
+ cd pyPro
+ virtualenv venv
+</code></pre></li>
 <li><p>激活环境</p>
- <figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">. venv<span class="meta-keyword">/bin/</span>activate <span class="meta">#注意：<span class="string">"."</span>和<span class="string">"venv"</span>之间有一个空格</span></div></pre></td></tr></table></figure>
-</li>
+<pre><code> . venv/bin/activate #注意：&quot;.&quot;和&quot;venv&quot;之间有一个空格
+</code></pre></li>
 <li><p>安装Flask</p>
- <figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip <span class="keyword">install</span> Flask</div></pre></td></tr></table></figure>
-</li>
-<li><p>打开pyCharm，创建一个新的项目，在Interpreter后面点击齿轮按钮，选择<code>Create VirtualEnv</code>，选择刚刚创建目录下的<code>.../pyPro/venv/bin/python</code>，点击<code>OK</code>即可，成功之后的效果如图所示：<br><img src="http://7xk1uj.com1.z0.glb.clouddn.com//image/blog/python.png" alt="效果图"></p>
-</li>
+<pre><code> pip install Flask
+</code></pre></li>
+<li>打开pyCharm，创建一个新的项目，在Interpreter后面点击齿轮按钮，选择<code>Create VirtualEnv</code>，选择刚刚创建目录下的<code>.../pyPro/venv/bin/python</code>，点击<code>OK</code>即可，成功之后的效果如图所示：<br><img src="http://7xk1uj.com1.z0.glb.clouddn.com//image/blog/python.png" alt="效果图"></li>
 <li><p>在pyCharm中创建Hello.py文件：</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line"><span class="meta">@app.route('/')</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></div><div class="line">   <span class="keyword">return</span> <span class="string">'Hello, World!'</span></div><div class="line"></div><div class="line">app.run()</div></pre></td></tr></table></figure>
-</li>
+<pre><code> from flask import Flask
+
+ app = Flask(__name__)
+
+ @app.route(&#39;/&#39;)
+ def hello():
+ return &#39;Hello, World!&#39;
+
+ app.run()
+</code></pre></li>
 <li><p>运行项目，控制台输出：</p>
- <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/Users/</span>ilancuo<span class="regexp">/PyPro/</span>venv<span class="regexp">/bin/</span>python <span class="regexp">/Users/</span>ilancuo<span class="regexp">/PycharmProjects/</span>FlaskTest/Hello.py</div><div class="line">* Running on <span class="string">http:</span><span class="comment">//127.0.0.1:5000/ (Press CTRL+C to quit)</span></div></pre></td></tr></table></figure>
-<p> 表示项目运行成功，这时候打开浏览器访问：</p>
- <figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">http:</span><span class="comment">//127.0.0.1:5000</span></div><div class="line">或者</div><div class="line"><span class="symbol">http:</span><span class="comment">//localhost:5000</span></div></pre></td></tr></table></figure>
-<p> 就会在网页上显示：Hello, World!。<br> 至此，项目配置成功。</p>
+<pre><code> /Users/ilancuo/PyPro/venv/bin/python /Users/ilancuo/PycharmProjects/FlaskTest/Hello.py
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+</code></pre><p> 表示项目运行成功，这时候打开浏览器访问：</p>
+<pre><code> http://127.0.0.1:5000
+ 或者
+ http://localhost:5000
+</code></pre><p> 就会在网页上显示：Hello, World!。<br> 至此，项目配置成功。</p>
 </li>
 </ol>
 
@@ -477,11 +494,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ADB</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -502,14 +527,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">pyCharm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
             
             <div class="clearfix"></div>

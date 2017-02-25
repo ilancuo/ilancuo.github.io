@@ -10,32 +10,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="初始化Git仓库：
 
-1git init
+git init
 
 Git配置用户名和邮箱：
 
-12git config --global user.name &quot;ilancuo&quot;git config --global user.email &quot;grandkingwang@gmail.com&quot; #如果只想在该项目中配置，只需要把--global参数去掉即可">
+git config --global user.name &amp;quot;ilancuo&amp;quot;
+git config --global user.email &amp;quot;grandkingwang@gmail.com&amp;quot; #如果只想在该项目中配置，只需要把--global参数去掉即可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git的基本用法">
 <meta property="og:url" content="http://ilancuo.com/2016/12/14/Git的基本用法/index.html">
 <meta property="og:site_name" content="小情调男">
 <meta property="og:description" content="初始化Git仓库：
 
-1git init
+git init
 
 Git配置用户名和邮箱：
 
-12git config --global user.name &quot;ilancuo&quot;git config --global user.email &quot;grandkingwang@gmail.com&quot; #如果只想在该项目中配置，只需要把--global参数去掉即可">
+git config --global user.name &amp;quot;ilancuo&amp;quot;
+git config --global user.email &amp;quot;grandkingwang@gmail.com&amp;quot; #如果只想在该项目中配置，只需要把--global参数去掉即可">
 <meta property="og:updated_time" content="2017-02-23T12:43:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git的基本用法">
 <meta name="twitter:description" content="初始化Git仓库：
 
-1git init
+git init
 
 Git配置用户名和邮箱：
 
-12git config --global user.name &quot;ilancuo&quot;git config --global user.email &quot;grandkingwang@gmail.com&quot; #如果只想在该项目中配置，只需要把--global参数去掉即可">
+git config --global user.name &amp;quot;ilancuo&amp;quot;
+git config --global user.email &amp;quot;grandkingwang@gmail.com&amp;quot; #如果只想在该项目中配置，只需要把--global参数去掉即可">
   
     <link rel="alternative" href="/atom.xml" title="小情调男" type="application/atom+xml">
   
@@ -196,56 +199,70 @@ Git配置用户名和邮箱：
         <ul>
 <li>初始化Git仓库：</li>
 </ul>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">git init</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git init
+</code></pre><ul>
 <li>Git配置用户名和邮箱：</li>
 </ul>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">config</span> --<span class="keyword">global</span> user<span class="variable">.name</span> <span class="string">"ilancuo"</span></div><div class="line">git <span class="keyword">config</span> --<span class="keyword">global</span> user<span class="variable">.email</span> <span class="string">"grandkingwang@gmail.com"</span> #如果只想在该项目中配置，只需要把--<span class="keyword">global</span>参数去掉即可</div></pre></td></tr></table></figure>
-<a id="more"></a>
+<pre><code>git config --global user.name &quot;ilancuo&quot;
+git config --global user.email &quot;grandkingwang@gmail.com&quot; #如果只想在该项目中配置，只需要把--global参数去掉即可
+</code></pre><a id="more"></a>
 <ul>
 <li>查看Git配置状态：</li>
 </ul>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config <span class="comment">--list</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git config --list
+</code></pre><ul>
 <li>添加到暂存</li>
 </ul>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">add</span><span class="bash"> hello.txt <span class="comment">#添加一个文件</span></span></div><div class="line"><span class="comment">#或者</span></div><div class="line">git <span class="keyword">add</span><span class="bash"> -A <span class="comment">#添加当前目录下的所有文件</span></span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git add hello.txt #添加一个文件
+#或者
+git add -A #添加当前目录下的所有文件
+</code></pre><ul>
 <li>提交</li>
 </ul>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">git</span> commit -m <span class="string">"Initial commit."</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git commit -m &quot;Initial commit.&quot;
+</code></pre><ul>
 <li>链接远端仓库</li>
 </ul>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin https:<span class="regexp">//gi</span>thub.com<span class="regexp">/ilancuo/i</span>.git <span class="comment">#通常主远端仓库被起名称origin</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git remote add origin https://github.com/ilancuo/i.git #通常主远端仓库被起名称origin
+</code></pre><ul>
 <li>Push &amp;&amp; Pull</li>
 </ul>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git pull origin <span class="keyword">master</span> <span class="title">#第一个参数为远端仓库的名字，第二个参数为分支的名字</span></div><div class="line">git push origin <span class="literal">master</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git pull origin master #第一个参数为远端仓库的名字，第二个参数为分支的名字
+git push origin master
+</code></pre><ul>
 <li>克隆</li>
 </ul>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/ilancuo/i.git</div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git clone https://github.com/ilancuo/i.git
+</code></pre><ul>
 <li>分支</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git checkout -b <span class="built_in">test</span> <span class="comment">#该命令相当于以下两条</span></div><div class="line">git branch <span class="built_in">test</span> <span class="comment">#创建分支</span></div><div class="line">git checkout <span class="built_in">test</span> <span class="comment">#切换分支</span></div><div class="line">git branch <span class="comment">#查看分支</span></div><div class="line">git branch <span class="_">-d</span> <span class="built_in">test</span> <span class="comment">#删除分支</span></div><div class="line">git branch merge <span class="built_in">test</span> <span class="comment">#合并到当前分支</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git checkout -b test #该命令相当于以下两条
+git branch test #创建分支
+git checkout test #切换分支
+git branch #查看分支
+git branch -d test #删除分支
+git branch merge test #合并到当前分支
+</code></pre><ul>
 <li>回退</li>
 </ul>
-<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">git </span><span class="string">reset </span><span class="built_in">--hard</span> <span class="string">HEAD^</span> <span class="comment">#回退到上一个版本</span></div><div class="line"><span class="string">git </span><span class="string">reset </span><span class="built_in">--hard</span> <span class="string">HEAD^</span>^ <span class="comment">#回退到上上个版本</span></div><div class="line"><span class="string">git </span><span class="string">reset </span><span class="built_in">--hard</span> <span class="string">HEAD~</span><span class="string">100 </span><span class="comment">#回退到前100个版本</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git reset --hard HEAD^ #回退到上一个版本
+git reset --hard HEAD^^ #回退到上上个版本
+git reset --hard HEAD~100 #回退到前100个版本
+</code></pre><ul>
 <li>显示日志</li>
 </ul>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span> <span class="comment">#显示完整日志</span></div><div class="line">git <span class="built_in">log</span> <span class="comment">--pretty=oneline #单行显示</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git log #显示完整日志
+git log --pretty=oneline #单行显示
+</code></pre><ul>
 <li>从回退中恢复</li>
 </ul>
-<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">git </span><span class="string">reflog </span><span class="comment">#关掉命令行之后获取版本号</span></div><div class="line"><span class="string">git </span><span class="string">reset </span><span class="built_in">--hard</span> [版本号] <span class="comment">#从回退中恢复</span></div></pre></td></tr></table></figure>
-<ul>
+<pre><code>git reflog #关掉命令行之后获取版本号
+git reset --hard [版本号] #从回退中恢复
+</code></pre><ul>
 <li>合并分支</li>
 </ul>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">merge</span> dev <span class="comment">#将dev分支合并到master上</span></div></pre></td></tr></table></figure>
+<pre><code>git merge dev #将dev分支合并到master上
+</code></pre>
       
 
       
@@ -502,11 +519,19 @@ Git配置用户名和邮箱：
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ADB</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -527,14 +552,6 @@ Git配置用户名和邮箱：
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">pyCharm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
             
             <div class="clearfix"></div>

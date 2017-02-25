@@ -8,23 +8,29 @@
   <link rel="dns-prefetch" href="http://ilancuo.com">
   <title>Android中采用xml存储map | 小情调男</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
+  <meta name="description" content="在strings.xml中创建如下格式的数据：&amp;lt;string-array name=&amp;quot;nameValue&amp;quot;&amp;gt;
+ &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;
+ &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;
+&amp;lt;/string-array&amp;gt;
 
 使用标准的读取string数组的方式进行读取：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android中采用xml存储map">
 <meta property="og:url" content="http://ilancuo.com/2016/12/27/Android中采用xml存储map/index.html">
 <meta property="og:site_name" content="小情调男">
-<meta property="og:description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
+<meta property="og:description" content="在strings.xml中创建如下格式的数据：&amp;lt;string-array name=&amp;quot;nameValue&amp;quot;&amp;gt;
+ &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;
+ &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;
+&amp;lt;/string-array&amp;gt;
 
 使用标准的读取string数组的方式进行读取：">
 <meta property="og:updated_time" content="2017-02-23T12:41:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android中采用xml存储map">
-<meta name="twitter:description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
+<meta name="twitter:description" content="在strings.xml中创建如下格式的数据：&amp;lt;string-array name=&amp;quot;nameValue&amp;quot;&amp;gt;
+ &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;
+ &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;
+&amp;lt;/string-array&amp;gt;
 
 使用标准的读取string数组的方式进行读取：">
   
@@ -185,12 +191,21 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ol>
-<li><p>在strings.xml中创建如下格式的数据：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="built_in">string</span>-array <span class="built_in">name</span>=<span class="string">"nameValue"</span>&gt;</div><div class="line">    &lt;<span class="built_in">item</span>&gt;<span class="built_in">name</span>|Mike&lt;/<span class="built_in">item</span>&gt;</div><div class="line">    &lt;<span class="built_in">item</span>&gt;age|<span class="number">18</span>&lt;/<span class="built_in">item</span>&gt;</div><div class="line">&lt;/<span class="built_in">string</span>-array&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用标准的读取string数组的方式进行读取：<a id="more"></a></p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; getMap() &#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">String</span>[] arry = getResources().getStringArray(R.array.nameValue);</div><div class="line">    Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">String</span> <span class="built_in">str</span> : mari) &#123;</div><div class="line">        <span class="keyword">String</span>[] <span class="built_in">split</span> = <span class="built_in">str</span>.<span class="built_in">split</span>(<span class="string">"\\|"</span>);  <span class="comment">//注意这一步，将分割线前后的两个字符串分别存储到Key和value中，分割线可自定义</span></div><div class="line">        <span class="built_in">map</span>.put(<span class="built_in">split</span>[<span class="number">0</span>], <span class="built_in">split</span>[<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">map</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
+<li>在strings.xml中创建如下格式的数据：<pre><code>&lt;string-array name=&quot;nameValue&quot;&gt;
+ &lt;item&gt;name|Mike&lt;/item&gt;
+ &lt;item&gt;age|18&lt;/item&gt;
+&lt;/string-array&gt;
+</code></pre></li>
+<li>使用标准的读取string数组的方式进行读取：<a id="more"></a><pre><code>public Map&lt;String, String&gt; getMap() {
+ private String[] arry = getResources().getStringArray(R.array.nameValue);
+ Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+ for (String str : mari) {
+     String[] split = str.split(&quot;\\|&quot;);  //注意这一步，将分割线前后的两个字符串分别存储到Key和value中，分割线可自定义
+     map.put(split[0], split[1]);
+ }
+ return map;
+}
+</code></pre></li>
 </ol>
 <p>参考：<a href="http://stackoverflow.com/questions/3013655/creating-hashmap-map-from-xml-resources" target="_blank" rel="external">stackoverflow</a></p>
 
@@ -458,11 +473,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ADB</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,14 +506,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">pyCharm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
             
             <div class="clearfix"></div>

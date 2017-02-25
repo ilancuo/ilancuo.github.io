@@ -177,27 +177,144 @@
       
         <p>需要用到xml与服务端进行通信。由于之前的json数据交换经验，首先Google的是类似Gson的直接解析数据到Bean的工具，经观察，jdk中含有JAXBContext，在Java环境中测试通过之后，将测试用例迁移到Android环境下，报了个NoClassDefFoundError，后来在StackOverFlow上发现此路不通。<br>后来又看到了推荐的XStream，经测试在1.4.8+的版本中也测试不通，可能是版本兼容性的问题，换成1.4.7版本之后，竟然测试通过了。下面是详细的过程：</p>
 <ul>
-<li>在build.gradle中添加依赖：<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> (<span class="string">'com.thoughtworks.xstream:xstream:1.4.7'</span>) &#123;</div><div class="line">    <span class="keyword">exclude</span> <span class="keyword">group</span>: <span class="string">'xmlpull'</span>, module: <span class="string">'xmlpull'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<a id="more"></a>
-<ul>
+<li>在build.gradle中添加依赖：<pre><code>compile (&#39;com.thoughtworks.xstream:xstream:1.4.7&#39;) {
+  exclude group: &#39;xmlpull&#39;, module: &#39;xmlpull&#39;
+}
+</code></pre><a id="more"></a></li>
 <li><p>建立相应的实体类：</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">String</span> username;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">String</span> password;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">String</span> email;</div><div class="line"> </div><div class="line">    <span class="keyword">public</span> User(<span class="keyword">String</span> username, <span class="keyword">String</span> password, <span class="keyword">String</span> email) &#123;</div><div class="line">        <span class="built_in">this</span>.username = username;</div><div class="line">        <span class="built_in">this</span>.password = password;</div><div class="line">        <span class="built_in">this</span>.email = email;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// Getter、Setter方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
+<pre><code>public class User {
+  private String username;
+  private String password;
+  private String email;
+
+  public User(String username, String password, String email) {
+      this.username = username;
+      this.password = password;
+      this.email = email;
+  }
+  // Getter、Setter方法
+}
+</code></pre></li>
 <li><p>直接调用相应的转换方法：</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">User</span> <span class="title">user</span> = new User(<span class="string">"ilancuo"</span>, <span class="string">"123456"</span>, <span class="string">"ilancuo@ilancuo.com"</span>);</div><div class="line">XStream xStream = new XStream();</div><div class="line"><span class="keyword">String</span> <span class="keyword">xml</span> <span class="title">= xStream</span>.toXML(user);</div><div class="line">Log.e(<span class="keyword">TAG</span>, xml);</div></pre></td></tr></table></figure>
+<pre><code>User user = new User(&quot;ilancuo&quot;, &quot;123456&quot;, &quot;ilancuo@ilancuo.com&quot;);
+XStream xStream = new XStream();
+String xml = xStream.toXML(user);
+Log.e(TAG, xml);
+</code></pre><p>输出结果为：</p>
+<pre><code>&lt;com.ilancuo.xstreamtest.User&gt;
+&lt;username&gt;ilancuo&lt;/username&gt;
+&lt;password&gt;123456&lt;/password&gt;
+&lt;email&gt;ilancuo@ilancuo.com&lt;/email&gt;
+&lt;/com.ilancuo.xstreamtest.User&gt;
+</code></pre><p>到这一步为止，实现了从xml到JavaBean的转化。但是由于.Net写的后台，后台要求，根节点不能带包名，并且字段很多是”User.Name”和”User.Password”形式的，但是Java实体类中不能出现这样的属性，只好继续Google。<br>发现可以重新给设置xml中属性的名称：</p>
+<pre><code>xStream.alias(&quot;User&quot;, User.class); //根节点名称
+xStream.aliasField(&quot;User.Name&quot;, User.class, &quot;username&quot;);
+xStream.aliasField(&quot;User.Password&quot;, User.class, &quot;password&quot;);
+xStream.aliasField(&quot;User.Email&quot;, User.class, &quot;email&quot;);
+</code></pre><p>输出结果：</p>
+<pre><code>&lt;User&gt;
+&lt;User.Name&gt;ilancuo&lt;/User.Name&gt;
+&lt;User.Password&gt;123456&lt;/User.Password&gt;
+&lt;User.Email&gt;ilancuo@ilancuo.com&lt;/User.Email&gt;
+&lt;/User&gt;
+</code></pre><p>完美那个单词怎么说来着？Perfect！可以来个简单的封装了。老规矩，先看协议文档，忽然发现，有两个接口返回的每个字段都是“User.Name”形式的，心里暗暗骂了一遍.Net写的后台。并且“xStream.aliasField”是什么鬼？重复性的工作，简直是对程序员的侮辱！可不可以给每个属性都加个注解呢？好吧，继续Google……终于，皇天不负有心人，这时候，我们的User类是这样的了：</p>
+<pre><code>@XStreamAlias(&quot;User&quot;)
+public class User {
+
+  @XStreamAlias(&quot;User.Name&quot;)
+  private String username;
+
+  @XStreamAlias(&quot;User.Password&quot;)
+  private String password;
+
+  @XStreamAlias(&quot;User.Email&quot;)
+  private String email;
+
+  public User(String username, String password, String email) {
+      this.username = username;
+      this.password = password;
+      this.email = email;
+  }
+  // Getter、Setter方法
+}
+</code></pre><p>调用的时候只需要这样就行了</p>
+<pre><code>XStream xStream = new XStream();
+xStream.autodetectAnnotations(true);
+xStream.processAnnotations(User.class);
+String xml = xStream.toXML(user);
+Log.e(TAG, xml);
+</code></pre><p>此时，输出的结果为：</p>
+<pre><code>&lt;User&gt;
+&lt;User.Name&gt;ilancuo&lt;/User.Name&gt;
+&lt;User.Password&gt;123456&lt;/User.Password&gt;
+&lt;User.Email&gt;gradnkingwang@gmail.com&lt;/User.Email&gt;
+&lt;/User&gt;
+</code></pre><p>现在才是真正的完美嘛！但是总感觉少了点什么，继续翻协议文档。我擦，xml头没有。好吧，果断字符串拼接啊！有没有更吊的方法呢？还真被我找到了。直接写一个类，继承XStream，然后重写toXML()方法即可。<br>```<br>import com.thoughtworks.xstream.XStream;<br>import com.thoughtworks.xstream.io.xml.DomDriver;</p>
 </li>
 </ul>
-<p>输出结果为：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">com.ilancuo.xstreamtest.User</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">username</span>&gt;</span>ilancuo<span class="tag">&lt;/<span class="name">username</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">password</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">password</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">email</span>&gt;</span>ilancuo@ilancuo.com<span class="tag">&lt;/<span class="name">email</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">com.ilancuo.xstreamtest.User</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>到这一步为止，实现了从xml到JavaBean的转化。但是由于.Net写的后台，后台要求，根节点不能带包名，并且字段很多是”User.Name”和”User.Password”形式的，但是Java实体类中不能出现这样的属性，只好继续Google。<br>发现可以重新给设置xml中属性的名称：<br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">xStream.<span class="keyword">alias</span>(<span class="string">"User"</span>, User.<span class="keyword">class</span>); <span class="comment">//根节点名称</span></div><div class="line">xStream.aliasField(<span class="string">"User.Name"</span>, User.<span class="keyword">class</span>, <span class="string">"username"</span>);</div><div class="line">xStream.aliasField(<span class="string">"User.Password"</span>, User.<span class="keyword">class</span>, <span class="string">"password"</span>);</div><div class="line">xStream.aliasField(<span class="string">"User.Email"</span>, User.<span class="keyword">class</span>, <span class="string">"email"</span>);</div></pre></td></tr></table></figure></p>
-<p>输出结果：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">User</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">User.Name</span>&gt;</span>ilancuo<span class="tag">&lt;/<span class="name">User.Name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">User.Password</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">User.Password</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">User.Email</span>&gt;</span>ilancuo@ilancuo.com<span class="tag">&lt;/<span class="name">User.Email</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">User</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>完美那个单词怎么说来着？Perfect！可以来个简单的封装了。老规矩，先看协议文档，忽然发现，有两个接口返回的每个字段都是“User.Name”形式的，心里暗暗骂了一遍.Net写的后台。并且“xStream.aliasField”是什么鬼？重复性的工作，简直是对程序员的侮辱！可不可以给每个属性都加个注解呢？好吧，继续Google……终于，皇天不负有心人，这时候，我们的User类是这样的了：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@XStreamAlias(<span class="meta-string">"User"</span>)</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line"> </div><div class="line">    <span class="meta">@XStreamAlias(<span class="meta-string">"User.Name"</span>)</span></div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line"> </div><div class="line">    <span class="meta">@XStreamAlias(<span class="meta-string">"User.Password"</span>)</span></div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line"> </div><div class="line">    <span class="meta">@XStreamAlias(<span class="meta-string">"User.Email"</span>)</span></div><div class="line">    <span class="keyword">private</span> String email;</div><div class="line"> </div><div class="line">    <span class="keyword">public</span> User(String username, String password, String email) &#123;</div><div class="line">        <span class="keyword">this</span>.username = username;</div><div class="line">        <span class="keyword">this</span>.password = password;</div><div class="line">        <span class="keyword">this</span>.email = email;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// Getter、Setter方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>调用的时候只需要这样就行了<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">XStream xStream = <span class="literal">new</span> XStream();</div><div class="line">xStream.autodetectAnnotations(<span class="literal">true</span>);</div><div class="line">xStream.processAnnotations(User.class);</div><div class="line"><span class="built_in">String</span> <span class="built_in">xml</span> = xStream.toXML(user);</div><div class="line"><span class="keyword">Log</span>.e(<span class="built_in">TAG</span>, <span class="built_in">xml</span>);</div></pre></td></tr></table></figure></p>
-<p>此时，输出的结果为：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">User</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">User.Name</span>&gt;</span>ilancuo<span class="tag">&lt;/<span class="name">User.Name</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">User.Password</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">User.Password</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">User.Email</span>&gt;</span>gradnkingwang@gmail.com<span class="tag">&lt;/<span class="name">User.Email</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">User</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>现在才是真正的完美嘛！但是总感觉少了点什么，继续翻协议文档。我擦，xml头没有。好吧，果断字符串拼接啊！有没有更吊的方法呢？还真被我找到了。直接写一个类，继承XStream，然后重写toXML()方法即可。<br><figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> com.thoughtworks.xstream.XStream;</div><div class="line"><span class="keyword">import</span> com.thoughtworks.xstream.io.xml.DomDriver;</div><div class="line"> </div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.OutputStream;</div><div class="line"><span class="keyword">import</span> java.io.Writer;</div><div class="line"> </div><div class="line"><span class="comment">/**</span></div><div class="line">* XStream扩展</div><div class="line">*</div><div class="line">* Created by ilancuo on 2016/11/29.</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> XStreamImpl extends XStream &#123;</div><div class="line"> </div><div class="line">    <span class="keyword">public</span> XStreamImpl() &#123;</div><div class="line">        <span class="keyword">super</span>(<span class="keyword">new</span> DomDriver(<span class="string">"utf-8"</span>));</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">public</span> String getDeclaration() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"&lt;?xml version=\"1.0\" encoding=\"utf-8\" ?&gt;\n"</span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">@Override</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> toXML(Object obj, OutputStream <span class="keyword">out</span>) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            String dec = <span class="keyword">this</span>.getDeclaration();</div><div class="line">            <span class="keyword">byte</span>[] byteDec = dec.getBytes();</div><div class="line">            <span class="keyword">out</span>.write(byteDec);</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">super</span>.toXML(obj, <span class="keyword">out</span>);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">@Override</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> toXML(Object obj, Writer <span class="keyword">out</span>) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">out</span>.write(getDeclaration());</div><div class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">super</span>.toXML(obj, <span class="keyword">out</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>额，还是拼接。不过，不要在意这些细节。<br>最后一步，简单进行地封装一下：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> com.thoughtworks.xstream.XStream;</div><div class="line"> </div><div class="line"><span class="comment">/**</span></div><div class="line">* XStream解析器</div><div class="line">*</div><div class="line">* Created by ilancuo on 2016/11/29.</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XStreamParser</span> </span>&#123;</div><div class="line"> </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> XStreamParser instance;</div><div class="line"> </div><div class="line">    <span class="keyword">private</span> XStream xStream;</div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">XStreamParser</span><span class="params">()</span> </span>&#123;</div><div class="line">        xStream = <span class="keyword">new</span> XStreamImpl();</div><div class="line">        xStream.autodetectAnnotations(<span class="keyword">true</span>);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function">XStreamParser <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">synchronized</span> (XStreamParser.class) &#123;</div><div class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</div><div class="line">                    instance = <span class="keyword">new</span> XStreamParser();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">String <span class="title">toXML</span><span class="params">(T t)</span> </span>&#123;</div><div class="line">        xStream.processAnnotations(t.getClass());</div><div class="line">        <span class="function"><span class="keyword">return</span> xStream.<span class="title">toXML</span><span class="params">(t)</span></span>;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">fromXML</span><span class="params">(String xml)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (T) xStream.fromXML(xml);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>欢迎各位雅正。</p>
+<p>import java.io.IOException;<br>import java.io.OutputStream;<br>import java.io.Writer;</p>
+<p>/**</p>
+<ul>
+<li>XStream扩展<br>*</li>
+<li><p>Created by ilancuo on 2016/11/29.<br>*/<br>public class XStreamImpl extends XStream {</p>
+<p>  public XStreamImpl() {</p>
+<pre><code>  super(new DomDriver(&quot;utf-8&quot;));
+</code></pre><p>  }</p>
+<p>  public String getDeclaration() {</p>
+<pre><code>  return &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot; ?&gt;\n&quot;;
+</code></pre><p>  }</p>
+<p>  @Override<br>  public void toXML(Object obj, OutputStream out) {</p>
+<pre><code>  try {
+      String dec = this.getDeclaration();
+      byte[] byteDec = dec.getBytes();
+      out.write(byteDec);
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+  super.toXML(obj, out);
+</code></pre><p>  }</p>
+<p>  @Override<br>  public void toXML(Object obj, Writer out) {</p>
+<pre><code>  try {
+      out.write(getDeclaration());
+  } catch (IOException e) {
+      e.printStackTrace();
+  }
+  super.toXML(obj, out);
+</code></pre><p>  }<br>}</p>
+<pre><code>额，还是拼接。不过，不要在意这些细节。
+最后一步，简单进行地封装一下：
+</code></pre><p>import com.thoughtworks.xstream.XStream;</p>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>XStream解析器<br>*</li>
+<li><p>Created by ilancuo on 2016/11/29.<br>*/<br>public class XStreamParser {</p>
+<p>  private static XStreamParser instance;</p>
+<p>  private XStream xStream;</p>
+<p>  private XStreamParser() {</p>
+<pre><code>  xStream = new XStreamImpl();
+  xStream.autodetectAnnotations(true);
+</code></pre><p>  }</p>
+<p>  public static XStreamParser getInstance() {</p>
+<pre><code>  if (instance == null) {
+      synchronized (XStreamParser.class) {
+          if (instance == null) {
+              instance = new XStreamParser();
+          }
+      }
+  }
+  return instance;
+</code></pre><p>  }</p>
+<p>  public <t> String toXML(T t) {</t></p>
+<pre><code>  xStream.processAnnotations(t.getClass());
+  return xStream.toXML(t);
+</code></pre><p>  }</p>
+<p>  public <t> T fromXML(String xml) {</t></p>
+<pre><code>  return (T) xStream.fromXML(xml);
+</code></pre><p>  }<br>}<br>```<br>欢迎各位雅正。</p>
+</li>
+</ul>
 
       
 
@@ -458,11 +575,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ADB</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,14 +608,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">pyCharm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">xStream</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">自定义View</a>
               </li>
             
             <div class="clearfix"></div>
