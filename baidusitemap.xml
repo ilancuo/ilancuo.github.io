@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://ilancuo.com/2017/02/28/Android%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8Lambda/</loc>
+    <lastmod>2017-02-28T12:05:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android项目中使用Lambda</title>
+        <pubTime>2017-02-28T12:00:50.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>Lambda</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://ilancuo.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://ilancuo.com/2017/02/20/Android%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E5%88%B0Excel%E7%9A%84%E9%80%9A%E7%94%A8%E5%A4%84%E7%90%86/</loc>
     <lastmod>2017-02-23T13:23:35.000Z</lastmod>
     <data>
@@ -35,9 +57,9 @@
         
         <tag>Android</tag>
          
-        <tag>xml</tag>
-         
         <tag>xStream</tag>
+         
+        <tag>xml</tag>
          
          
            
