@@ -6,27 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ilancuo.com">
-  <title>Android中采用xml存储map | 小情调男</title>
+  <title>Archives: 2017/3 | 小情调男</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
-
-使用标准的读取string数组的方式进行读取：">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Android中采用xml存储map">
-<meta property="og:url" content="http://ilancuo.com/2016/12/27/Android中采用xml存储map/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="小情调男">
+<meta property="og:url" content="http://ilancuo.com/archives/2017/03/index.html">
 <meta property="og:site_name" content="小情调男">
-<meta property="og:description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
-
-使用标准的读取string数组的方式进行读取：">
-<meta property="og:updated_time" content="2017-02-23T12:41:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android中采用xml存储map">
-<meta name="twitter:description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
-
-使用标准的读取string数组的方式进行读取：">
+<meta name="twitter:title" content="小情调男">
   
     <link rel="alternative" href="/atom.xml" title="小情调男" type="application/atom+xml">
   
@@ -164,69 +151,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Android中采用xml存储map" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Android中采用xml存储map
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/03/02/Retrofit在Android中的使用/" class="archive-article-date">
+  	<time datetime="2017-03-02T13:31:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-02</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/03/02/Retrofit在Android中的使用/">Retrofit在Android中的使用</a>
     </h1>
   
 
-        
-        <a href="/2016/12/27/Android中采用xml存储map/" class="archive-article-date">
-  	<time datetime="2016-12-27T12:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>在strings.xml中创建如下格式的数据：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="built_in">string</span>-array <span class="built_in">name</span>=<span class="string">"nameValue"</span>&gt;</div><div class="line">    &lt;<span class="built_in">item</span>&gt;<span class="built_in">name</span>|Mike&lt;/<span class="built_in">item</span>&gt;</div><div class="line">    &lt;<span class="built_in">item</span>&gt;age|<span class="number">18</span>&lt;/<span class="built_in">item</span>&gt;</div><div class="line">&lt;/<span class="built_in">string</span>-array&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用标准的读取string数组的方式进行读取：<a id="more"></a></p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; getMap() &#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">String</span>[] arry = getResources().getStringArray(R.array.nameValue);</div><div class="line">    Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">String</span> <span class="built_in">str</span> : mari) &#123;</div><div class="line">        <span class="keyword">String</span>[] <span class="built_in">split</span> = <span class="built_in">str</span>.<span class="built_in">split</span>(<span class="string">"\\|"</span>);  <span class="comment">//注意这一步，将分割线前后的两个字符串分别存储到Key和value中，分割线可自定义</span></div><div class="line">        <span class="built_in">map</span>.put(<span class="built_in">split</span>[<span class="number">0</span>], <span class="built_in">split</span>[<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">map</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>参考：<a href="http://stackoverflow.com/questions/3013655/creating-hashmap-map-from-xml-resources" target="_blank" rel="external">stackoverflow</a></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://7xk1uj.com1.z0.glb.clouddn.com//image/pay/wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -236,17 +190,13 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">xml</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">map</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Retrofit</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -259,113 +209,17 @@
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://ilancuo.com/2016/12/27/Android中采用xml存储map/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/01/18/Mac下使用Flask框架开发Python/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Mac下使用Flask框架开发Python
-        
-      </div>
-    </a>
   
   
-    <a href="/2016/12/25/Android开发中常用的ADB命令/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Android开发中常用的ADB命令</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Android中采用xml存储map" data-title="Android中采用xml存储map" data-url="http://ilancuo.com/2016/12/27/Android中采用xml存储map/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"ilancuo"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
+    </div></section>
   
 
-
+    
 
 
           </div>
@@ -388,8 +242,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://ilancuo.com/2017/03/02/Retrofit%E5%9C%A8Android%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2017-03-02T13:34:21.000Z</lastmod>
+    <data>
+        <display>
+        <title>Retrofit在Android中的使用</title>
+        <pubTime>2017-03-02T13:31:18.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>Retrofit</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://ilancuo.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://ilancuo.com/2017/02/28/Android%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8Lambda/</loc>
     <lastmod>2017-02-28T12:05:56.000Z</lastmod>
     <data>
@@ -57,9 +79,9 @@
         
         <tag>Android</tag>
          
-        <tag>xStream</tag>
-         
         <tag>xml</tag>
+         
+        <tag>xStream</tag>
          
          
            

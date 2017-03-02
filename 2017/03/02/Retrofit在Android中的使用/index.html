@@ -6,27 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ilancuo.com">
-  <title>Android中采用xml存储map | 小情调男</title>
+  <title>Retrofit在Android中的使用 | 小情调男</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
-
-使用标准的读取string数组的方式进行读取：">
+  <meta name="description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android中采用xml存储map">
-<meta property="og:url" content="http://ilancuo.com/2016/12/27/Android中采用xml存储map/index.html">
+<meta property="og:title" content="Retrofit在Android中的使用">
+<meta property="og:url" content="http://ilancuo.com/2017/03/02/Retrofit在Android中的使用/index.html">
 <meta property="og:site_name" content="小情调男">
-<meta property="og:description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
-
-使用标准的读取string数组的方式进行读取：">
-<meta property="og:updated_time" content="2017-02-23T12:41:38.000Z">
+<meta property="og:description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
+<meta property="og:updated_time" content="2017-03-02T13:34:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android中采用xml存储map">
-<meta name="twitter:description" content="在strings.xml中创建如下格式的数据：
-1234&amp;lt;string-array name=&quot;nameValue&quot;&amp;gt;    &amp;lt;item&amp;gt;name|Mike&amp;lt;/item&amp;gt;    &amp;lt;item&amp;gt;age|18&amp;lt;/item&amp;gt;&amp;lt;/string-array&amp;gt;
-
-使用标准的读取string数组的方式进行读取：">
+<meta name="twitter:title" content="Retrofit在Android中的使用">
+<meta name="twitter:description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
   
     <link rel="alternative" href="/atom.xml" title="小情调男" type="application/atom+xml">
   
@@ -164,20 +155,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Android中采用xml存储map" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Retrofit在Android中的使用" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Android中采用xml存储map
+      Retrofit在Android中的使用
     </h1>
   
 
         
-        <a href="/2016/12/27/Android中采用xml存储map/" class="archive-article-date">
-  	<time datetime="2016-12-27T12:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-27</time>
+        <a href="/2017/03/02/Retrofit在Android中的使用/" class="archive-article-date">
+  	<time datetime="2017-03-02T13:31:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-02</time>
 </a>
         
       </header>
@@ -185,14 +176,38 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ol>
-<li><p>在strings.xml中创建如下格式的数据：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="built_in">string</span>-array <span class="built_in">name</span>=<span class="string">"nameValue"</span>&gt;</div><div class="line">    &lt;<span class="built_in">item</span>&gt;<span class="built_in">name</span>|Mike&lt;/<span class="built_in">item</span>&gt;</div><div class="line">    &lt;<span class="built_in">item</span>&gt;age|<span class="number">18</span>&lt;/<span class="built_in">item</span>&gt;</div><div class="line">&lt;/<span class="built_in">string</span>-array&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用标准的读取string数组的方式进行读取：<a id="more"></a></p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; getMap() &#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">String</span>[] arry = getResources().getStringArray(R.array.nameValue);</div><div class="line">    Map&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;&gt;();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">String</span> <span class="built_in">str</span> : mari) &#123;</div><div class="line">        <span class="keyword">String</span>[] <span class="built_in">split</span> = <span class="built_in">str</span>.<span class="built_in">split</span>(<span class="string">"\\|"</span>);  <span class="comment">//注意这一步，将分割线前后的两个字符串分别存储到Key和value中，分割线可自定义</span></div><div class="line">        <span class="built_in">map</span>.put(<span class="built_in">split</span>[<span class="number">0</span>], <span class="built_in">split</span>[<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">map</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li>导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:retrofit:2.2.0'</span></div><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:converter-gson:2.2.0'</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>参考：<a href="http://stackoverflow.com/questions/3013655/creating-hashmap-map-from-xml-resources" target="_blank" rel="external">stackoverflow</a></p>
+<a id="more"></a>
+<ol>
+<li><p>创建网络访问接口：</p>
+ <figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">public</span> <span class="selector-tag">interface</span> <span class="selector-tag">GitHubService</span> &#123;</div><div class="line">    <span class="variable">@GET</span>(<span class="string">"users/&#123;user&#125;/repos"</span>)</div><div class="line">    Call&lt;List&lt;Repo&gt;&gt; listRepos(<span class="variable">@Path</span>(<span class="string">"user"</span>) String user);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>构建Retrofit实例：</p>
+ <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Retrofit retrofit</span> = new Retrofit.Builder()</div><div class="line">                    .baseUrl(<span class="string">"https://api.github.com/"</span>)</div><div class="line">                    .build();</div><div class="line"><span class="attribute">GitHubService service</span> = retrofit.create(GitHubService.class);</div></pre></td></tr></table></figure>
+</li>
+<li><p>调用，共有两种调用方式：同步、异步</p>
+<ol>
+<li><p>同步调用：</p>
+ <figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Call</span>&lt;<span class="built_in">List</span>&lt;Repo&gt;&gt; <span class="built_in">call</span> = service.listRepos(<span class="string">"ilancuo"</span>);</div><div class="line"><span class="built_in">List</span>&lt;Repo&gt; repos = <span class="built_in">call</span>.execute().body;</div></pre></td></tr></table></figure>
+<p> 注意，同步调用时候，必须放在子线程中进行；</p>
+</li>
+<li>异步调用： <figure class="highlight vbscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">call</span>.enqueue(<span class="keyword">new</span> Callback&lt;Repo&gt;() &#123;</div><div class="line">    @Override</div><div class="line">    <span class="keyword">public</span> void onResponse(<span class="keyword">Call</span>&lt;Repo&gt; <span class="keyword">call</span>, <span class="built_in">Response</span>&lt;Repo&gt; <span class="built_in">response</span>) &#123;</div><div class="line">        <span class="built_in">Log</span>.e(TAG, <span class="built_in">response</span>.body().toString());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    <span class="keyword">public</span> void onFailure(<span class="keyword">Call</span>&lt;Repo&gt; <span class="keyword">call</span>, Throwable t) &#123;</div><div class="line">        <span class="built_in">Log</span>.e(TAG, t.getMessage());</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>取消正在进行的请求：</p>
+ <figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">call.cancel()<span class="comment">;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>构建自定义的Interceptor:</p>
+ <figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomInterceptor</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">Interceptor</span></span> </span>&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    <span class="keyword">public</span> Response intercept(Chain chain) throws IOException &#123;</div><div class="line">        Request request = chain.request();</div><div class="line">        HttpUrl httpUrl = request</div><div class="line">            .url()</div><div class="line">            .<span class="keyword">new</span><span class="type">Builder</span>()</div><div class="line">            .addQueryParameter(<span class="string">"token"</span>, <span class="string">"tokenValue"</span>) <span class="comment">//这里可以添加部分公共参数，比如此处的token</span></div><div class="line">            .build();</div><div class="line">        request = request.<span class="keyword">new</span><span class="type">Builder</span>().url(httpUrl).build();</div><div class="line">        <span class="keyword">return</span> chain.proceed(request);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>自定义Interceptor的使用：</p>
+ <figure class="highlight pony"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="type">OkHttpClient</span> client = <span class="function"><span class="keyword">new</span> <span class="title">OkHttpClient</span>()</span></div><div class="line">            .<span class="title">newBuilder</span>()</div><div class="line">            .<span class="title">addInterceptor</span>(new <span class="type">CustomInterceptor</span>())</div><div class="line">            .<span class="title">build</span>();</div><div class="line"></div><div class="line">    <span class="title">Retrofit</span> <span class="title">retrofit</span> = <span class="title">new</span> <span class="title">Retrofit</span>.<span class="title">Builder</span>()</div><div class="line">            .<span class="title">baseUrl</span>("https://api.github.com/")</div><div class="line">            .<span class="title">addConverterFactory</span>(<span class="type">GsonConverterFactory</span>.create())</div><div class="line">            .<span class="title">client</span>(client)</div><div class="line">            .<span class="title">build</span>();</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>[注]本文只简单写了一个简单的Get请求，对整体流程做一个大概的把握。其他请参考<a href="http://square.github.io/retrofit/#api-declaration" target="_blank" rel="external">Retrofit官网</a>。</p>
 
       
 
@@ -236,11 +251,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">xml</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">map</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Retrofit</a>
         		</li>
       		
 		</ul>
@@ -307,7 +318,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://ilancuo.com/2016/12/27/Android中采用xml存储map/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://ilancuo.com/2017/03/02/Retrofit在Android中的使用/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -321,18 +332,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/01/18/Mac下使用Flask框架开发Python/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Mac下使用Flask框架开发Python
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/12/25/Android开发中常用的ADB命令/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Android开发中常用的ADB命令</div>
+    <a href="/2017/02/28/Android项目中使用Lambda/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android项目中使用Lambda</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -346,7 +348,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Android中采用xml存储map" data-title="Android中采用xml存储map" data-url="http://ilancuo.com/2016/12/27/Android中采用xml存储map/"></div>
+	<div class="ds-thread" data-thread-key="Retrofit在Android中的使用" data-title="Retrofit在Android中的使用" data-url="http://ilancuo.com/2017/03/02/Retrofit在Android中的使用/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
