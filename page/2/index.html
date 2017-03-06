@@ -6,24 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ilancuo.com">
-  <title>关于我 | 小情调男</title>
+  <title>小情调男</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="QQ:            411454331        
-Email:        grandkingwang@gmail.com
-GitHub:        https://github.com/ilancuo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于我">
-<meta property="og:url" content="http://ilancuo.com/about/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="小情调男">
+<meta property="og:url" content="http://ilancuo.com/page/2/index.html">
 <meta property="og:site_name" content="小情调男">
-<meta property="og:description" content="QQ:            411454331        
-Email:        grandkingwang@gmail.com
-GitHub:        https://github.com/ilancuo">
-<meta property="og:updated_time" content="2016-12-26T14:52:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于我">
-<meta name="twitter:description" content="QQ:            411454331        
-Email:        grandkingwang@gmail.com
-GitHub:        https://github.com/ilancuo">
+<meta name="twitter:title" content="小情调男">
   
     <link rel="alternative" href="/atom.xml" title="小情调男" type="application/atom+xml">
   
@@ -161,153 +151,98 @@ GitHub:        https://github.com/ilancuo">
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-undefined" class="article article-type-page " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-Android简单使用xStream解析、封装xml" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      关于我
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/04/Android简单使用xStream解析、封装xml/">Android简单使用xStream解析、封装xml</a>
     </h1>
   
 
         
-        <a href="/about/index.html" class="archive-article-date">
-  	<time datetime="2016-12-04T11:16:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-04</time>
+        <a href="/2016/12/04/Android简单使用xStream解析、封装xml/" class="archive-article-date">
+  	<time datetime="2016-12-04T14:45:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong><em>QQ:</em></strong>            411454331        </p>
-<p><strong><em>Email:</em></strong>        grandkingwang@gmail.com</p>
-<p><strong><em>GitHub:</em></strong>        <a href="https://github.com/ilancuo" target="_blank" rel="external">https://github.com/ilancuo</a></p>
-
+        <p>需要用到xml与服务端进行通信。由于之前的json数据交换经验，首先Google的是类似Gson的直接解析数据到Bean的工具，经观察，jdk中含有JAXBContext，在Java环境中测试通过之后，将测试用例迁移到Android环境下，报了个NoClassDefFoundError，后来在StackOverFlow上发现此路不通。<br>后来又看到了推荐的XStream，经测试在1.4.8+的版本中也测试不通，可能是版本兼容性的问题，换成1.4.7版本之后，竟然测试通过了。下面是详细的过程：</p>
+<ul>
+<li>在build.gradle中添加依赖：<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> (<span class="string">'com.thoughtworks.xstream:xstream:1.4.7'</span>) &#123;</div><div class="line">    <span class="keyword">exclude</span> <span class="keyword">group</span>: <span class="string">'xmlpull'</span>, module: <span class="string">'xmlpull'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+        
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://7xk1uj.com1.z0.glb.clouddn.com//image/pay/wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
       
       
-      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">xml</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">xStream</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/12/04/Android简单使用xStream解析、封装xml/">展开全文 >></a>
+        </p>
+      
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://ilancuo.com/about/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-  
 
 
 
 
 
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="关于我" data-url="http://ilancuo.com/about/index.html"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"ilancuo"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
+
 
   
-
-
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 
 
           </div>
@@ -329,7 +264,7 @@ GitHub:        https://github.com/ilancuo">
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
+		isHome: true,
 		isPost: false,
 		isArchive: false,
 		isTag: false,

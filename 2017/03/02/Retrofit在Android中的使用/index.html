@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://ilancuo.com">
   <title>Retrofit在Android中的使用 | 小情调男</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
+  <meta name="description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包，这两个包版本必须一致： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit在Android中的使用">
 <meta property="og:url" content="http://ilancuo.com/2017/03/02/Retrofit在Android中的使用/index.html">
 <meta property="og:site_name" content="小情调男">
-<meta property="og:description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
-<meta property="og:updated_time" content="2017-03-02T13:34:21.000Z">
+<meta property="og:description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包，这两个包版本必须一致： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
+<meta property="og:updated_time" content="2017-03-06T13:28:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit在Android中的使用">
-<meta name="twitter:description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
+<meta name="twitter:description" content="导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包，这两个包版本必须一致： 12compile &apos;com.squareup.retrofit2:retrofit:2.2.0&apos;compile &apos;com.squareup.retrofit2:converter-gson:2.2.0&apos;">
   
     <link rel="alternative" href="/atom.xml" title="小情调男" type="application/atom+xml">
   
@@ -176,7 +176,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ol>
-<li>导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:retrofit:2.2.0'</span></div><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:converter-gson:2.2.0'</span></div></pre></td></tr></table></figure>
+<li>导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包，这两个包版本必须一致： <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:retrofit:2.2.0'</span></div><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:converter-gson:2.2.0'</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 <a id="more"></a>
@@ -204,7 +204,9 @@
  <figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomInterceptor</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">Interceptor</span></span> </span>&#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    <span class="keyword">public</span> Response intercept(Chain chain) throws IOException &#123;</div><div class="line">        Request request = chain.request();</div><div class="line">        HttpUrl httpUrl = request</div><div class="line">            .url()</div><div class="line">            .<span class="keyword">new</span><span class="type">Builder</span>()</div><div class="line">            .addQueryParameter(<span class="string">"token"</span>, <span class="string">"tokenValue"</span>) <span class="comment">//这里可以添加部分公共参数，比如此处的token</span></div><div class="line">            .build();</div><div class="line">        request = request.<span class="keyword">new</span><span class="type">Builder</span>().url(httpUrl).build();</div><div class="line">        <span class="keyword">return</span> chain.proceed(request);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>自定义Interceptor的使用：</p>
- <figure class="highlight pony"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="type">OkHttpClient</span> client = <span class="function"><span class="keyword">new</span> <span class="title">OkHttpClient</span>()</span></div><div class="line">            .<span class="title">newBuilder</span>()</div><div class="line">            .<span class="title">addInterceptor</span>(new <span class="type">CustomInterceptor</span>())</div><div class="line">            .<span class="title">build</span>();</div><div class="line"></div><div class="line">    <span class="title">Retrofit</span> <span class="title">retrofit</span> = <span class="title">new</span> <span class="title">Retrofit</span>.<span class="title">Builder</span>()</div><div class="line">            .<span class="title">baseUrl</span>("https://api.github.com/")</div><div class="line">            .<span class="title">addConverterFactory</span>(<span class="type">GsonConverterFactory</span>.create())</div><div class="line">            .<span class="title">client</span>(client)</div><div class="line">            .<span class="title">build</span>();</div></pre></td></tr></table></figure>
+ <figure class="highlight haxe"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//自定义日志过滤器</span></div><div class="line">HttpLoggingInterceptor loggingInterceptor = <span class="keyword">new</span> <span class="type">HttpLoggingInterceptor</span>(<span class="keyword">new</span> <span class="type">HttpLoggingInterceptor</span>.Logger() &#123;</div><div class="line">        @Override</div><div class="line">        <span class="keyword">public</span> void log(<span class="keyword">String</span> message) &#123;</div><div class="line">            Log.e(<span class="string">"Retrofit"</span>, message);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);</div><div class="line"><span class="comment">// End of 自定义日志过滤器</span></div><div class="line">OkHttpClient client = <span class="keyword">new</span> <span class="type">OkHttpClient</span>()</div><div class="line">            .<span class="keyword">new</span><span class="type">Builder</span>()</div><div class="line">            .addInterceptor(loggingInterceptor) <span class="comment">//使用日志过滤器</span></div><div class="line">            .addInterceptor(<span class="keyword">new</span> <span class="type">CustomInterceptor</span>()) <span class="comment">//使用自定义过滤器</span></div><div class="line">            .build();</div><div class="line"></div><div class="line">    Retrofit retrofit = <span class="keyword">new</span> <span class="type">Retrofit</span>.Builder()</div><div class="line">            .baseUrl(<span class="string">"https://api.github.com/"</span>)</div><div class="line">            .addConverterFactory(GsonConverterFactory.create())</div><div class="line">            .client(client)</div><div class="line">            .build();</div></pre></td></tr></table></figure>
+<p> 自定义日志过滤器需要添加以下依赖：</p>
+ <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.okhttp3:logging-interceptor:3.6.0'</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>[注]本文只简单写了一个简单的Get请求，对整体流程做一个大概的把握。其他请参考<a href="http://square.github.io/retrofit/#api-declaration" target="_blank" rel="external">Retrofit官网</a>。</p>
@@ -332,6 +334,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2017/03/06/Android中使用IntDef代替Enum的方案/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Android中使用IntDef代替Enum的方案
+        
+      </div>
+    </a>
+  
   
     <a href="/2017/02/28/Android项目中使用Lambda/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Android项目中使用Lambda</div>
@@ -452,7 +463,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+                <a href="javascript:void(0)" class="js-tag color2">IntDef</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Enum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -461,6 +476,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
               </li>
              
               <li class="article-tag-list-item">

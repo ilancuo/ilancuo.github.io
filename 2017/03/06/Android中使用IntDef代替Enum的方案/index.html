@@ -6,24 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://ilancuo.com">
-  <title>关于我 | 小情调男</title>
+  <title>Android中使用IntDef代替Enum的方案 | 小情调男</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="QQ:            411454331        
-Email:        grandkingwang@gmail.com
-GitHub:        https://github.com/ilancuo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于我">
-<meta property="og:url" content="http://ilancuo.com/about/index.html">
+  <meta name="description" content="如果定义一个只有有限个输入的方法，通常的情况便是采用枚举。但是官方文档说明，Android开发，应该避免使用Enum，因为相比静态常量Enum会花费两倍以上的内存。因而推出了IntDef和StringDef（这里我们不讨论使用常量的方法）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android中使用IntDef代替Enum的方案">
+<meta property="og:url" content="http://ilancuo.com/2017/03/06/Android中使用IntDef代替Enum的方案/index.html">
 <meta property="og:site_name" content="小情调男">
-<meta property="og:description" content="QQ:            411454331        
-Email:        grandkingwang@gmail.com
-GitHub:        https://github.com/ilancuo">
-<meta property="og:updated_time" content="2016-12-26T14:52:06.000Z">
+<meta property="og:description" content="如果定义一个只有有限个输入的方法，通常的情况便是采用枚举。但是官方文档说明，Android开发，应该避免使用Enum，因为相比静态常量Enum会花费两倍以上的内存。因而推出了IntDef和StringDef（这里我们不讨论使用常量的方法）">
+<meta property="og:updated_time" content="2017-03-06T13:32:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于我">
-<meta name="twitter:description" content="QQ:            411454331        
-Email:        grandkingwang@gmail.com
-GitHub:        https://github.com/ilancuo">
+<meta name="twitter:title" content="Android中使用IntDef代替Enum的方案">
+<meta name="twitter:description" content="如果定义一个只有有限个输入的方法，通常的情况便是采用枚举。但是官方文档说明，Android开发，应该避免使用Enum，因为相比静态常量Enum会花费两倍以上的内存。因而推出了IntDef和StringDef（这里我们不讨论使用常量的方法）">
   
     <link rel="alternative" href="/atom.xml" title="小情调男" type="application/atom+xml">
   
@@ -161,29 +155,41 @@ GitHub:        https://github.com/ilancuo">
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-undefined" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-Android中使用IntDef代替Enum的方案" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      关于我
+      Android中使用IntDef代替Enum的方案
     </h1>
   
 
         
-        <a href="/about/index.html" class="archive-article-date">
-  	<time datetime="2016-12-04T11:16:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-04</time>
+        <a href="/2017/03/06/Android中使用IntDef代替Enum的方案/" class="archive-article-date">
+  	<time datetime="2017-03-06T13:29:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong><em>QQ:</em></strong>            411454331        </p>
-<p><strong><em>Email:</em></strong>        grandkingwang@gmail.com</p>
-<p><strong><em>GitHub:</em></strong>        <a href="https://github.com/ilancuo" target="_blank" rel="external">https://github.com/ilancuo</a></p>
+        <blockquote>
+<p>如果定义一个只有有限个输入的方法，通常的情况便是采用枚举。但是官方文档说明，Android开发，应该避免使用Enum，因为相比静态常量Enum会花费两倍以上的内存。因而推出了IntDef和StringDef（这里我们不讨论使用常量的方法）<br><a id="more"></a></p>
+</blockquote>
+<ol>
+<li><p>枚举的使用方法：</p>
+ <figure class="highlight crystal"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public <span class="class"><span class="keyword">enum</span> <span class="title">Season</span> &#123;</span></div><div class="line">    SPRING, SUMMER, AUTUMN, WINTER</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">private</span> Season season = Season.WINTER;</div><div class="line"></div><div class="line">public Season getSeason() &#123;</div><div class="line">    <span class="keyword">return</span> season;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public void setSeason(Season season) &#123;</div><div class="line">    this.season = season;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 在这里，setSeason()方法，只能接收Seanson.SPRING、Season.SUMMER、Season.AUTUMN、Season.WINTER四个参数。</p>
+</li>
+<li><p>采用IntDef/StringDef修改过的方法：</p>
+ <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SPRING = <span class="number">0</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SUMMER = <span class="number">1</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> AUTUMN = <span class="number">2</span>;</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> WINTER = <span class="number">3</span>;</div><div class="line"></div><div class="line"><span class="meta">@IntDef</span>(&#123;SPRING, SUMMER, AUTUMN, WINTER&#125;)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Season &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Season</span> <span class="keyword">int</span> current = SPRING;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="meta">@Season</span> <span class="function"><span class="keyword">int</span> <span class="title">getCurrent</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> current;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">setCurrent</span><span class="params">(@Season <span class="keyword">int</span> current)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.current = current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> [注意]采用这种方法需要引入annotations包：</p>
+ <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.android.support:support-annotations:22.0.0'</span></div></pre></td></tr></table></figure>
+<p> 如果导入过<code>com.android.support:appcompat-v7</code>，就不需要导入annotations包了。</p>
+</li>
+</ol>
 
       
 
@@ -218,7 +224,37 @@ GitHub:        https://github.com/ilancuo">
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">IntDef</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Enum</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -268,7 +304,7 @@ GitHub:        https://github.com/ilancuo">
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://ilancuo.com/about/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://ilancuo.com/2017/03/06/Android中使用IntDef代替Enum的方案/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -280,6 +316,16 @@ GitHub:        https://github.com/ilancuo">
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/02/Retrofit在Android中的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Retrofit在Android中的使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 
@@ -288,7 +334,7 @@ GitHub:        https://github.com/ilancuo">
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="关于我" data-url="http://ilancuo.com/about/index.html"></div>
+	<div class="ds-thread" data-thread-key="Android中使用IntDef代替Enum的方案" data-title="Android中使用IntDef代替Enum的方案" data-url="http://ilancuo.com/2017/03/06/Android中使用IntDef代替Enum的方案/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -330,7 +376,7 @@ GitHub:        https://github.com/ilancuo">
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

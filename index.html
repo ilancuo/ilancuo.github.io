@@ -153,6 +153,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Android中使用IntDef代替Enum的方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/06/Android中使用IntDef代替Enum的方案/">Android中使用IntDef代替Enum的方案</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/06/Android中使用IntDef代替Enum的方案/" class="archive-article-date">
+  	<time datetime="2017-03-06T13:29:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>如果定义一个只有有限个输入的方法，通常的情况便是采用枚举。但是官方文档说明，Android开发，应该避免使用Enum，因为相比静态常量Enum会花费两倍以上的内存。因而推出了IntDef和StringDef（这里我们不讨论使用常量的方法）<br>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">IntDef</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Enum</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/06/Android中使用IntDef代替Enum的方案/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Retrofit在Android中的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -174,7 +256,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ol>
-<li>导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包： <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:retrofit:2.2.0'</span></div><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:converter-gson:2.2.0'</span></div></pre></td></tr></table></figure>
+<li>导入Retrofit和Gson Convertor（Gson Convertor或者其他，可以根据自己的需求进行选择）的包，这两个包版本必须一致： <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:retrofit:2.2.0'</span></div><div class="line"><span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:converter-gson:2.2.0'</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
         
@@ -883,91 +965,10 @@
 
 
   
-    <article id="post-Android简单使用xStream解析、封装xml" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/04/Android简单使用xStream解析、封装xml/">Android简单使用xStream解析、封装xml</a>
-    </h1>
-  
-
-        
-        <a href="/2016/12/04/Android简单使用xStream解析、封装xml/" class="archive-article-date">
-  	<time datetime="2016-12-04T14:45:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>需要用到xml与服务端进行通信。由于之前的json数据交换经验，首先Google的是类似Gson的直接解析数据到Bean的工具，经观察，jdk中含有JAXBContext，在Java环境中测试通过之后，将测试用例迁移到Android环境下，报了个NoClassDefFoundError，后来在StackOverFlow上发现此路不通。<br>后来又看到了推荐的XStream，经测试在1.4.8+的版本中也测试不通，可能是版本兼容性的问题，换成1.4.7版本之后，竟然测试通过了。下面是详细的过程：</p>
-<ul>
-<li>在build.gradle中添加依赖：<figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">compile</span> (<span class="string">'com.thoughtworks.xstream:xstream:1.4.7'</span>) &#123;</div><div class="line">    <span class="keyword">exclude</span> <span class="keyword">group</span>: <span class="string">'xmlpull'</span>, module: <span class="string">'xmlpull'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">xml</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">xStream</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Android/" class="article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/04/Android简单使用xStream解析、封装xml/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1053,7 +1054,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
+                <a href="javascript:void(0)" class="js-tag color2">IntDef</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Enum</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1062,6 +1067,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">map</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Excel</a>
               </li>
              
               <li class="article-tag-list-item">
