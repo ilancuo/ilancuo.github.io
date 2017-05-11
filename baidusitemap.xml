@@ -3,6 +3,52 @@
 
 
     
+  <url>
+    <loc>http://ilancuo.com/2017/03/06/Android%E4%B8%AD%E4%BD%BF%E7%94%A8IntDef%E4%BB%A3%E6%9B%BFEnum%E7%9A%84%E6%96%B9%E6%A1%88/</loc>
+    <lastmod>2017-05-11T15:15:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android中使用IntDef代替Enum的方案</title>
+        <pubTime>2017-03-06T13:29:59.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>IntDef</tag>
+         
+        <tag>Enum</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://ilancuo.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://ilancuo.com/2017/05/11/Android%E8%87%AA%E5%AE%9A%E4%B9%89Dialog%E7%9A%84%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2017-05-11T15:13:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android自定义Dialog的实现</title>
+        <pubTime>2017-05-11T15:09:32.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+        <tag>自定义View</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="http://ilancuo.com/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
     
   <url>
@@ -38,30 +84,6 @@
         <tag>Android</tag>
          
         <tag>ADB</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="http://ilancuo.com/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://ilancuo.com/2017/03/06/Android%E4%B8%AD%E4%BD%BF%E7%94%A8IntDef%E4%BB%A3%E6%9B%BFEnum%E7%9A%84%E6%96%B9%E6%A1%88/</loc>
-    <lastmod>2017-03-06T13:32:41.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android中使用IntDef代替Enum的方案</title>
-        <pubTime>2017-03-06T13:29:59.000Z</pubTime>
-        
-        <tag>Android</tag>
-         
-        <tag>IntDef</tag>
-         
-        <tag>Enum</tag>
          
          
            
