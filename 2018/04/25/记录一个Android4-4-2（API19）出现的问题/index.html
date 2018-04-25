@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android,Lambda," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -90,28 +90,16 @@
 
 
 
-<meta name="description" content="先在项目根目录下的build.gradle文件中的dependencies节点下添加：
- 1classpath &apos;me.tatarka:gradle-retrolambda:3.2.0&apos;
-
-在moudule中的build.gradle文件中添加：
- 1apply plugin: &apos;me.tatarka.retrolambda&apos;">
+<meta name="description" content="报错内容如下：123456789101112131415161718192021222324252627282930313233E/AndroidRuntime: FATAL EXCEPTION: main Process: com.ivt.mworkstation, PID: 11869    java.lang.RuntimeException: Unable to get provider">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android项目中使用Lambda">
-<meta property="og:url" content="http://ilancuo.com/2017/02/28/Android项目中使用Lambda/index.html">
+<meta property="og:title" content="记录一个Android4.4.2（API19）出现的问题">
+<meta property="og:url" content="http://ilancuo.com/2018/04/25/记录一个Android4-4-2（API19）出现的问题/index.html">
 <meta property="og:site_name" content="兰错">
-<meta property="og:description" content="先在项目根目录下的build.gradle文件中的dependencies节点下添加：
- 1classpath &apos;me.tatarka:gradle-retrolambda:3.2.0&apos;
-
-在moudule中的build.gradle文件中添加：
- 1apply plugin: &apos;me.tatarka.retrolambda&apos;">
-<meta property="og:updated_time" content="2017-02-28T12:05:56.000Z">
+<meta property="og:description" content="报错内容如下：123456789101112131415161718192021222324252627282930313233E/AndroidRuntime: FATAL EXCEPTION: main Process: com.ivt.mworkstation, PID: 11869    java.lang.RuntimeException: Unable to get provider">
+<meta property="og:updated_time" content="2018-04-25T15:18:34.220Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android项目中使用Lambda">
-<meta name="twitter:description" content="先在项目根目录下的build.gradle文件中的dependencies节点下添加：
- 1classpath &apos;me.tatarka:gradle-retrolambda:3.2.0&apos;
-
-在moudule中的build.gradle文件中添加：
- 1apply plugin: &apos;me.tatarka.retrolambda&apos;">
+<meta name="twitter:title" content="记录一个Android4.4.2（API19）出现的问题">
+<meta name="twitter:description" content="报错内容如下：123456789101112131415161718192021222324252627282930313233E/AndroidRuntime: FATAL EXCEPTION: main Process: com.ivt.mworkstation, PID: 11869    java.lang.RuntimeException: Unable to get provider">
 
 
 
@@ -139,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://ilancuo.com/2017/02/28/Android项目中使用Lambda/"/>
+  <link rel="canonical" href="http://ilancuo.com/2018/04/25/记录一个Android4-4-2（API19）出现的问题/"/>
 
 
 
 
 
-  <title>Android项目中使用Lambda | 兰错</title>
+  <title>记录一个Android4.4.2（API19）出现的问题 | 兰错</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -284,7 +272,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://ilancuo.com/2017/02/28/Android项目中使用Lambda/">
+    <link itemprop="mainEntityOfPage" href="http://ilancuo.com/2018/04/25/记录一个Android4-4-2（API19）出现的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ilancuo">
@@ -301,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android项目中使用Lambda</h1>
+          <h1 class="post-title" itemprop="name headline">记录一个Android4.4.2（API19）出现的问题</h1>
         
 
         <div class="post-meta">
@@ -313,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-28T20:00:50+08:00">
-                2017-02-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T23:12:27+08:00">
+                2018-04-25
               </time>
             
 
@@ -370,29 +358,16 @@
       
 
       
-        <ol>
-<li><p>先在项目根目录下的build.gradle文件中的dependencies节点下添加：</p>
- <figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">classpath</span> <span class="string">'me.tatarka:gradle-retrolambda:3.2.0'</span></div></pre></td></tr></table></figure>
+        <h4 id="报错内容如下："><a href="#报错内容如下：" class="headerlink" title="报错内容如下："></a>报错内容如下：</h4><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="type">E</span>/<span class="type">AndroidRuntime</span>: <span class="type">FATAL</span> <span class="type">EXCEPTION</span>: main <span class="type">Process</span>: com.ivt.mworkstation, <span class="type">PID</span>: <span class="number">11869</span></div><div class="line">    java.lang.<span class="type">RuntimeException</span>: <span class="type">Unable</span> to get provider android.sup<span class="keyword">port</span>.v4.content.FileProvider:  </div><div class="line">    java.lang.ClassNotFoundException: Didn't find class "android.support.v4.content.FileProvider" on path: DexPathList[[zip file "/data/app/com.ivt.mworkstation-2.apk"],nativeLibraryDirectories=[/data/app-lib/com.ivt.mworkstation-2, /vendor/lib, /data/cust/lib, /data/datalib, /system/lib]]</div><div class="line">    at android.app.ActivityThread.installProvider(<span class="type">ActivityThread</span>.java:5110)</div><div class="line">    at android.app.ActivityThread.installContentProviders(<span class="type">ActivityThread</span>.java:4696)</div><div class="line">    at android.app.ActivityThread.handleBindApplication(<span class="type">ActivityThread</span>.java:4636)</div><div class="line">    at android.app.ActivityThread.access$1800(<span class="type">ActivityThread</span>.java:143)</div><div class="line">    at android.app.ActivityThread$H.handleMessage(<span class="type">ActivityThread</span>.java:1322)</div><div class="line">    at android.os.Handler.dispatchMessage(<span class="type">Handler</span>.java:102)</div><div class="line">    at android.os.Looper.loop(<span class="type">Looper</span>.java:136)</div><div class="line">    at android.app.ActivityThread.main(<span class="type">ActivityThread</span>.java:5356)</div><div class="line">    at java.lang.reflect.Method.invokeNative(<span class="type">Native</span> <span class="type">Method</span>)</div><div class="line">    at java.lang.reflect.Method.invoke(<span class="type">Method</span>.java:515)</div><div class="line">    at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(<span class="type">ZygoteInit</span>.java:864)</div><div class="line">    at com.android.internal.os.ZygoteInit.main(<span class="type">ZygoteInit</span>.java:680)</div><div class="line">    at dalvik.system.NativeStart.main(<span class="type">Native</span> <span class="type">Method</span>)</div><div class="line">    Caused by: java.lang.ClassNotFoundException: Didn't find class "android.support.v4.content.FileProvider" on path: DexPathList[[zip file "/data/app/com.ivt.mworkstation-2.apk"],nativeLibraryDirectories=[/data/app-lib/com.ivt.mworkstation-2, /vendor/lib, /data/cust/lib, /data/datalib, /system/lib]]</div><div class="line">    at dalvik.system.BaseDexClassLoader.findClass(<span class="type">BaseDexClassLoader</span>.java:56)</div><div class="line">    at java.lang.ClassLoader.loadClass(<span class="type">ClassLoader</span>.java:497)</div><div class="line">    at java.lang.ClassLoader.loadClass(<span class="type">ClassLoader</span>.java:457)</div><div class="line">    at android.app.ActivityThread.installProvider(<span class="type">ActivityThread</span>.java:5095)</div><div class="line">    at android.app.ActivityThread.installContentProviders(<span class="type">ActivityThread</span>.java:4696) </div><div class="line">    at android.app.ActivityThread.handleBindApplication(<span class="type">ActivityThread</span>.java:4636) </div><div class="line">    at android.app.ActivityThread.access$1800(<span class="type">ActivityThread</span>.java:143) </div><div class="line">    at android.app.ActivityThread$H.handleMessage(<span class="type">ActivityThread</span>.java:1322) </div><div class="line">    at android.os.Handler.dispatchMessage(<span class="type">Handler</span>.java:102) </div><div class="line">    at android.os.Looper.loop(<span class="type">Looper</span>.java:136) </div><div class="line">    at android.app.ActivityThread.main(<span class="type">ActivityThread</span>.java:5356) </div><div class="line">    at java.lang.reflect.Method.invokeNative(<span class="type">Native</span> <span class="type">Method</span>) </div><div class="line">    at java.lang.reflect.Method.invoke(<span class="type">Method</span>.java:515) </div><div class="line">    at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(<span class="type">ZygoteInit</span>.java:864) </div><div class="line">    at com.android.internal.os.ZygoteInit.main(<span class="type">ZygoteInit</span>.java:680) </div><div class="line">    at dalvik.system.NativeStart.main(<span class="type">Native</span> <span class="type">Method</span>)</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h4><p>可能是添加MultiDex分包，但未初始化的原因</p>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><ul>
+<li><p>首先修改Gradle配置文件，启用MultiDex并包含MultiDex支持：</p>
+  <figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">android </span>&#123;</div><div class="line">    defaultConfig &#123;</div><div class="line">        ...</div><div class="line">        <span class="keyword">multiDexEnabled </span>true</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p>在moudule中的build.gradle文件中添加：</p>
- <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apply <span class="string">plugin:</span> <span class="string">'me.tatarka.retrolambda'</span></div></pre></td></tr></table></figure>
- <a id="more"></a></li>
-<li><p>在module中的build.gradle文件中的android节点下添加：</p>
- <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">compileOptions &#123;</div><div class="line">    sourceCompatibility JavaVersion<span class="selector-class">.VERSION_1_8</span></div><div class="line">    targetCompatibility JavaVersion<span class="selector-class">.VERSION_1_8</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用方法如下：</p>
-<ol>
-<li><p>在匿名内部类构造方法无参数的时候使用：</p>
- <figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread<span class="function"><span class="params">(() -&gt; Log.e(TAG, <span class="string">"Hello, this is thread."</span>))</span>;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>在匿名内部类的的构造方法中含有一个参数的时候使用：</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">findViewById</span>(<span class="selector-tag">R</span><span class="selector-class">.id</span><span class="selector-class">.btn</span>)<span class="selector-class">.setOnClickListener</span>(<span class="selector-tag">v</span> <span class="selector-tag">-</span>&gt; </div><div class="line">        <span class="selector-tag">Toast</span><span class="selector-class">.makeText</span>(<span class="selector-tag">MainActivity</span><span class="selector-class">.this</span>, "<span class="selector-tag">This</span> <span class="selector-tag">is</span> <span class="selector-tag">Toast</span>", <span class="selector-tag">Toast</span><span class="selector-class">.LENGTH_SHORT</span>)<span class="selector-class">.show</span>());</div></pre></td></tr></table></figure>
-</li>
-<li><p>在匿名内部类的的构造方法中含有两个或多个个参数的时候使用：</p>
- <figure class="highlight livescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="params">((CheckBox) findViewById(R.id.cb))</span>.<span class="title">setOnCheckedChangeListener</span><span class="params">(((buttonView, isChecked) -&gt; &#123;</span></span></div><div class="line">    Log.e(TAG, <span class="string">"buttonId: "</span> + buttonView.getId() + <span class="string">""</span>);</div><div class="line">    Log.e(TAG, <span class="string">"isChecked: "</span> + buttonView.isChecked() + <span class="string">""</span>);</div><div class="line">&#125;));</div></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ol>
+<li><p>重写Application中的attachBaseContext方法，对MultiDex进行初始化：</p>
+  <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@<span class="function">Override</span></div><div class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span>(<span class="params">Context <span class="keyword">base</span></span>) &#123;</div><div class="line">    super.attachBaseContext(<span class="keyword">base</span>);</div><div class="line">    MultiDex.install(<span class="keyword">base</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -424,8 +399,6 @@
           
             <a href="/tags/Android/" rel="tag"># Android</a>
           
-            <a href="/tags/Lambda/" rel="tag"># Lambda</a>
-          
         </div>
       
 
@@ -437,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/20/Android导出数据到Excel的通用处理/" rel="next" title="Android导出数据到Excel的通用处理">
-                <i class="fa fa-chevron-left"></i> Android导出数据到Excel的通用处理
+              <a href="/2017/12/08/通过代码控制EditText中光标的颜色/" rel="next" title="通过代码控制EditText中光标的颜色">
+                <i class="fa fa-chevron-left"></i> 通过代码控制EditText中光标的颜色
               </a>
             
           </div>
@@ -446,10 +419,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/02/Retrofit在Android中的使用/" rel="prev" title="Retrofit在Android中的使用">
-                Retrofit在Android中的使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -496,8 +465,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xk1uj.com1.z0.glb.clouddn.com/4042.gif"
@@ -573,6 +551,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#报错内容如下："><span class="nav-number">1.</span> <span class="nav-text">报错内容如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析原因"><span class="nav-number">2.</span> <span class="nav-text">分析原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方法"><span class="nav-number">3.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
